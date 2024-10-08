@@ -1,0 +1,25 @@
+************************************************************************************************
+****** Test Data ******
+************************************************************************************************
+
+12. Data12: sample = 4, batch_size = 3, drop_last = false
+Batch: {3}{1}
+or {4} ?
+
+13. Data13: sample = 4, batch_size = 3, drop_last = true
+Batch: {4}
+or {3} ?
+
+14. Data14: sample = 2, batch_size = 3, drop_last = true
+Batch: {2}
+or {0} ?
+
+18. Data18: sample = 3, batch_size = 2, drop_last = false
+Batch: {2}{1}
+or {3} ?
+
+*****************
+General problems with Test Data:
+    1. Behavior when batch_size > sample
+    2. When to call shuffle
+    3. Handle the case with empty label

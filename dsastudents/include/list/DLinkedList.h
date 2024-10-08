@@ -228,6 +228,72 @@ public:
             return iterator;
         }
     };
+    //////////////////////////////////////////////////////////////////////
+    class BWDIterator {
+        private:
+        DLinkedList<T> *pList;
+        Node *pNode;
+
+    public:
+        BWDIterator(DLinkedList<T> *pList = nullptr, bool end = true)
+        {
+            if (end)
+            {
+                if (pList)
+                    this->pNode = pList->tail->prev;
+                else
+                    pNode = nullptr;
+            }
+            else
+            {
+                if (pList)
+                    this->pNode = pList->head;
+                else
+                    pNode = nullptr;
+            }
+            this->pList = pList;
+        }
+
+        BWDIterator &operator=(const BWDIterator &it)
+        {
+            this->pNode = it.pNode;
+            this->pList = it.pList;
+            return *this;
+        }
+        void remove(void (*removeItemData)(T) = 0)
+        {
+            pNode->prev->next = pNode->next;
+            pNode->next->prev = pNode->prev;
+            Node *pNext = pNode->next;
+            if (removeItemData != 0)
+                removeItemData(pNode->data);
+            delete pNode;
+            pNode = pNext;
+            pList->count--;
+        }
+
+        T &operator*()
+        {
+            return pNode->data;
+        }
+        bool operator!=(const BWDIterator &it)
+        {
+            return (pNode != it.pNode);
+        }
+        // Prefix ++ overload
+        BWDIterator &operator--()
+        {
+            pNode = pNode->prev;
+            return *this;
+        }
+        // Postfix ++ overload
+        BWDIterator operator--(int)
+        {
+            BWDIterator it = *this;
+            --*this;
+            return it;
+        }
+    };
 };
 //////////////////////////////////////////////////////////////////////
 // Define a shorter name for DLinkedList:
@@ -305,7 +371,7 @@ void DLinkedList<T>::add(int index, T e)
 {
     // TODO
     if ((index < 0) || (index > this->count)) {
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("Index is out of range!");
     }
     if (index == this->count) {
         add(e);
@@ -330,11 +396,11 @@ typename DLinkedList<T>::Node *DLinkedList<T>::getPreviousNodeOf(int index)
      */
     // TODO
     if ((index < 0) || (index >= this->count)) {
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("Index is out of range!");
     }
     int mid = this->count / 2;
     if (index < mid) {
-        Node* node = this->head;
+        Node* node = this->head->next;
         int counter = 0;
         while (counter < index) {
             node = node->next;
@@ -358,7 +424,7 @@ T DLinkedList<T>::removeAt(int index)
 {
     // TODO
     if ((index < 0) || (index >= this->count)) {
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("Index is out of range!");
     }
     Node* prevNode = getPreviousNodeOf(index);
     Node* removedNode = prevNode->next;
@@ -406,7 +472,7 @@ T &DLinkedList<T>::get(int index)
 {
     // TODO
     if ((index < 0) || (index >= this->count)) {
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("Index is out of range!");
     }
     
     Node* prev = getPreviousNodeOf(index);

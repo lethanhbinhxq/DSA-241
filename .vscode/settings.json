@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.embeddedhtml": "html",
         "iomanip": "cpp",
         "functional": "cpp",
         "ostream": "cpp",
@@ -10,6 +11,10 @@
         "string_view": "cpp",
         "initializer_list": "cpp",
         "regex": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "string": "cpp",
+        "format": "cpp",
+        "optional": "cpp",
+        "variant": "cpp"
     }
 }

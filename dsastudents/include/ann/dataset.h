@@ -76,8 +76,8 @@ public:
          */
         this->data = data;
         this->label = label;
-        this->data_shape = xt::shape(data);
-        this->label_shape = xt::shape(label);
+        this->data_shape = xt::svector<unsigned long>(data.shape().begin(), data.shape().end());
+        this->label_shape = xt::svector<unsigned long>(label.shape().begin(), label.shape().end());
     }
     /* len():
      *  return the size of dimension 0
@@ -85,7 +85,7 @@ public:
     int len(){
         /* TODO: your code is here to return the dataset's length
          */
-        return this->data_shape[0].size();
+        return this->data_shape[0];
         // return 0; //remove it when complete
     }
     
@@ -96,9 +96,12 @@ public:
         /* TODO: your code is here
          */
         if ((index < 0) || (index >= len())) {
-            throw std::out_of_range("Index out of range");
+            throw std::out_of_range("Index is out of range!");
         }
-        return DataLabel(this->data(index), this->label(index));
+        if (this->label.dimension() == 0) {
+            return DataLabel<DType, LType>(xt::view(this->data, index), xt::xarray<LType>());
+        }
+        return DataLabel<DType, LType>(xt::view(this->data, index), xt::view(this->label, index));
     }
     
     xt::svector<unsigned long> get_data_shape(){

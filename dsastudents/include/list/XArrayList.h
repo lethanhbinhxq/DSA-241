@@ -266,13 +266,14 @@ template <class T>
 void XArrayList<T>::add(int index, T e)
 {
     // TODO
+    this->count++;
+    checkIndex(index);
     ensureCapacity(this->count);
     for (int i = this->count; i > index; i--)
     {
         this->data[i] = this->data[i - 1];
     }
     this->data[index] = e;
-    this->count++;
 }
 
 template <class T>
@@ -297,7 +298,7 @@ bool XArrayList<T>::removeItem(T item, void (*removeItemData)(T))
     {
         if (equals(item, this->data[i], this->itemEqual))
         {
-            removeItemData(this->data[i]);
+            if (removeItemData) removeItemData(this->data[i]);
             removeAt(i);
             return true;
         }
@@ -413,7 +414,7 @@ void XArrayList<T>::checkIndex(int index)
     // TODO
     if (index < 0 || index >= this->count)
     {
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("Index is out of range!");
     }
 }
 template <class T>
@@ -428,13 +429,14 @@ void XArrayList<T>::ensureCapacity(int index)
     // TODO
     if (index < 0 || index > this->count)
     {
-        throw std::out_of_range("Index out of range");
+        throw std::out_of_range("Index is out of range!");
     }
     else
     {
         if (index >= this->capacity)
         {
-            int newCapacity = this->capacity * 2;
+            // int newCapacity = this->capacity * 2;
+            int newCapacity = (this->capacity > 0) ? (this->capacity * 2) : 10;
             try
             {
                 this->capacity = newCapacity;
@@ -448,7 +450,7 @@ void XArrayList<T>::ensureCapacity(int index)
             }
             catch (std::bad_alloc &e)
             {
-                throw std::runtime_error("Memory allocation failed");
+                throw e;
             }
         }
     }
