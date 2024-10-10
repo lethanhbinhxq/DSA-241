@@ -8,6 +8,7 @@
  * Date: 10.9.2024
  */
 #include "unit_test.hpp"
+#include "../[DataLoader] C++ samples and outputs-20241008/DataLoaderDemo.h"
 map<string, bool (T_Data::*)()> T_Data::TESTS;
 
 bool T_Data::data1() {
@@ -629,4 +630,78 @@ bool T_Data::data23() {
 
   //! print result
   return printResult(output.str(), expect, name);
+}
+
+bool T_Data::data24() {
+  case_data_wo_label_1();
+  return false;
+}
+
+bool T_Data::data25() {
+  case_data_wi_label_1();
+  return false;
+}
+
+bool T_Data::data26() {
+  case_batch_larger_nsamples();
+  return false;
+}
+
+struct CustomType {
+    int id;
+    float value;
+    
+    friend ostream& operator<<(ostream& os, const CustomType& c) {
+        os << "{ id: " << c.id << ", value: " << c.value << " }";
+        return os;
+    }
+};
+
+
+bool T_Data::data27() {
+   // Create a dataset using custom struct with xt::xarray
+    xt::xarray<int> X_id = {{1, 2}, {3, 4}}; // 2x2 matrix for IDs
+    xt::xarray<double> X_value = {{2.5, 3.5}, {4.5, 5.5}}; // 2x2 matrix for values
+    xt::xarray<int> t = {1, 0, 1, 0}; // 4 Labels, matching data points
+
+    // Pack custom data into xt::xarray
+    xt::xarray<CustomType> X = {
+        CustomType{X_id(0, 0), X_value(0, 0)},
+        CustomType{X_id(0, 1), X_value(0, 1)},
+        CustomType{X_id(1, 0), X_value(1, 0)},
+        CustomType{X_id(1, 1), X_value(1, 1)}
+    };
+
+    cout << "############################################" << endl;
+    cout << "# CASE: CUSTOM DATA TYPE WITH 2D XTENSOR" << endl;
+    cout << "############################################" << endl;
+    cout << "ORIGINAL data and label:" << endl;
+    cout << "X shape: " << shape2str(X.shape()) << endl;
+    cout << "X: " << endl;
+    for (const auto& x : X) cout << x << endl;
+    cout << "t: " << endl << t << endl;
+    cout << "=================================" << endl;
+
+    // Create TensorDataset and DataLoader
+    TensorDataset<CustomType, int> ds(X, t);
+    int batch_size = 2; // Set batch size
+    bool shuffle = true, drop_last = false;
+    int seed = 100;
+
+    DataLoader<CustomType, int>* pLoader;
+
+    cout << "Loading with shuffle=true + seed=100:" << endl;
+    cout << "################################" << endl;
+    pLoader = new DataLoader<CustomType, int>(&ds, batch_size, shuffle, drop_last, seed);
+
+    int batch_idx = 1;
+    for (auto batch : *pLoader) {
+        cout << "batch_idx:" << batch_idx++ << endl;
+        cout << "data:" << endl;
+        for (const auto& x : batch.getData()) cout << x << endl;
+        cout << "label:" << endl << batch.getLabel() << endl;
+    }
+    delete pLoader;
+    cout << endl << endl;
+  return false;
 }

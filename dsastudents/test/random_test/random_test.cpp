@@ -12,6 +12,7 @@
 RandomTest::RandomTest(int from, int to) : from(from), to(to) {}
 
 void RandomTest::runTest() {
+
   for (int i = from; i <= to; ++i) {
     std::string inputFilename =
         "test/random_test/input/input_" + std::to_string(i);
@@ -20,7 +21,7 @@ void RandomTest::runTest() {
     processFile(inputFilename, outputFilename);
   }
 
-  // compareOutputs();
+  compareOutputs();
 }
 template <class T>
 void RandomTest::runtime(IList<T> &list) {}
@@ -39,49 +40,56 @@ void RandomTest::processFile(string inputFilename, string outputFilename) {
   file >> skip >> skip >> _itemEqual;
   file >> skip >> skip >> _deleteUserData;
   file >> skip >> skip >> capacity >> skip;
-  // std::map<std::string, bool (*)(Point &, Point &)> function_itemEqual;
-  // function_itemEqual["null"] = 0;
-  // function_itemEqual["pointEQ_X"] = &Point::pointEQ_X;
-  // function_itemEqual["pointEQ_Y"] = &Point::pointEQ_Y;
-  // function_itemEqual["pointEQ_Z"] = &Point::pointEQ_Z;
-  // function_itemEqual["pointEQ"] = &Point::pointEQ;
+  std::map<std::string, bool (*)(Point &, Point &)> function_itemEqual;
+  function_itemEqual["null"] = 0;
+  function_itemEqual["pointEQ_X"] = &Point::pointEQ_X;
+  function_itemEqual["pointEQ_Y"] = &Point::pointEQ_Y;
+  function_itemEqual["pointEQ_Z"] = &Point::pointEQ_Z;
+  function_itemEqual["pointEQ"] = &Point::pointEQ;
 
-  // if (_iList == "XArrayList") {
-  //   if (_type == "string") {
-  //     XArrayList<std::string> list(0, 0, capacity);
-  //     this->runtime(list);
-  //   } else if (_type == "int") {
-  //     XArrayList<int> list(0, 0, capacity);
-  //     this->runtime(list);
-  //   } else if (_type == "bool") {
-  //     XArrayList<bool> list(0, 0, capacity);
-  //     this->runtime(list);
-  //   } else if (_type == "Point") {
-  //     XArrayList<Point> list(0, function_itemEqual[_itemEqual], capacity);
-  //     this->runtime(list);
-  //   } else if (_type == "Point*") {
-  //     XArrayList<Point *> list(&XArrayList<Point *>::free,
-  //                              function_itemEqual[_itemEqual], capacity);
-  //     this->runtime(list);
-  //   }
-  // } else if (_iList == "XArrayList") {
-  //   if (_type == "string") {
-  //     XArrayList<std::string> list(0, 0, capacity);
-  //     this->runtime(list);
-  //   } else if (_type == "int") {
-  //     XArrayList<int> list(0, 0, capacity);
-  //     this->runtime(list);
-  //   } else if (_type == "bool") {
-  //     XArrayList<bool> list(0, 0, capacity);
-  //     this->runtime(list);
-  //   } else if (_type == "Point") {
-  //     XArrayList<Point> list(0, function_itemEqual[_itemEqual], capacity);
-  //     this->runtime(list);
-  //   } else if (_type == "Point*") {
-  //     XArrayList<Point *> list(&XArrayList<Point *>::free,
-  //                              function_itemEqual[_itemEqual], capacity);
-  //     this->runtime(list);
-  //   }
+  std::map<std::string, bool (*)(Point* &, Point* &)> fi;
+  fi["null"] = 0;
+  fi["pointEQ_X"] = &Point::pointEQ_X;
+  fi["pointEQ_Y"] = &Point::pointEQ_Y;
+  fi["pointEQ_Z"] = &Point::pointEQ_Z;
+  fi["pointEQ"] = &Point::pointEQ;
+
+  if (_iList == "XArrayList") {
+    if (_type == "string") {
+      XArrayList<std::string> list(0, 0, capacity);
+      this->runtime(list);
+    } else if (_type == "int") {
+      XArrayList<int> list(0, 0, capacity);
+      this->runtime(list);
+    } else if (_type == "bool") {
+      XArrayList<bool> list(0, 0, capacity);
+      this->runtime(list);
+    } else if (_type == "Point") {
+      XArrayList<Point> list(0, function_itemEqual[_itemEqual], capacity);
+      this->runtime(list);
+    } else if (_type == "Point*") {
+      XArrayList<Point *> list(&XArrayList<Point *>::free,
+                               fi[_itemEqual], capacity);
+      this->runtime(list);
+    }
+  } else if (_iList == "DLinkedList") { // Corrected to match the probable intention
+        if (_type == "string") {
+            DLinkedList<std::string> list;
+            this->runtime(list);
+        } else if (_type == "int") {
+            DLinkedList<int> list;
+            this->runtime(list);
+        } else if (_type == "bool") {
+            DLinkedList<bool> list;
+            this->runtime(list);
+        } else if (_type == "Point") {
+            DLinkedList<Point> list(0, function_itemEqual[_itemEqual]);
+            this->runtime(list);
+        } else if (_type == "Point*") {
+            DLinkedList<Point *> list(0, fi[_itemEqual]);
+            this->runtime(list);
+    }
+}
 }
 
 void RandomTest::compareOutputs() {

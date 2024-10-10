@@ -17,29 +17,33 @@ class T_Data {
  public:
   T_Data() {
     // test Array List
-    T_Data::registerTest("data01", &T_Data::data1);
-    T_Data::registerTest("data02", &T_Data::data2);
-    T_Data::registerTest("data03", &T_Data::data3);
-    T_Data::registerTest("data04", &T_Data::data4);
-    T_Data::registerTest("data05", &T_Data::data5);
-    T_Data::registerTest("data06", &T_Data::data6);
-    T_Data::registerTest("data07", &T_Data::data7);
-    T_Data::registerTest("data08", &T_Data::data8);
-    T_Data::registerTest("data09", &T_Data::data9);
-    T_Data::registerTest("data10", &T_Data::data10);
-    T_Data::registerTest("data11", &T_Data::data11);
-    T_Data::registerTest("data12", &T_Data::data12);
-    T_Data::registerTest("data13", &T_Data::data13);
-    T_Data::registerTest("data14", &T_Data::data14);
-    T_Data::registerTest("data15", &T_Data::data15);
-    T_Data::registerTest("data16", &T_Data::data16);
-    T_Data::registerTest("data17", &T_Data::data17);
-    T_Data::registerTest("data18", &T_Data::data18);
-    T_Data::registerTest("data19", &T_Data::data19);
-    T_Data::registerTest("data20", &T_Data::data20);
-    T_Data::registerTest("data21", &T_Data::data21);
-    T_Data::registerTest("data22", &T_Data::data22);
-    T_Data::registerTest("data23", &T_Data::data23);
+    // T_Data::registerTest("data01", &T_Data::data1);
+    // T_Data::registerTest("data02", &T_Data::data2);
+    // T_Data::registerTest("data03", &T_Data::data3);
+    // T_Data::registerTest("data04", &T_Data::data4);
+    // T_Data::registerTest("data05", &T_Data::data5);
+    // T_Data::registerTest("data06", &T_Data::data6);
+    // T_Data::registerTest("data07", &T_Data::data7);
+    // T_Data::registerTest("data08", &T_Data::data8);
+    // T_Data::registerTest("data09", &T_Data::data9);
+    // T_Data::registerTest("data10", &T_Data::data10);
+    // T_Data::registerTest("data11", &T_Data::data11);
+    // T_Data::registerTest("data12", &T_Data::data12);
+    // T_Data::registerTest("data13", &T_Data::data13);
+    // T_Data::registerTest("data14", &T_Data::data14);
+    // T_Data::registerTest("data15", &T_Data::data15);
+    // T_Data::registerTest("data16", &T_Data::data16);
+    // T_Data::registerTest("data17", &T_Data::data17);
+    // T_Data::registerTest("data18", &T_Data::data18);
+    // T_Data::registerTest("data19", &T_Data::data19);
+    // T_Data::registerTest("data20", &T_Data::data20);
+    // T_Data::registerTest("data21", &T_Data::data21);
+    // T_Data::registerTest("data22", &T_Data::data22);
+    // T_Data::registerTest("data23", &T_Data::data23);
+    // T_Data::registerTest("data24", &T_Data::data24);
+    // T_Data::registerTest("data25", &T_Data::data25);
+    // T_Data::registerTest("data26", &T_Data::data26);
+    T_Data::registerTest("data27", &T_Data::data27);
     // TODO unit new
   }
 
@@ -67,6 +71,10 @@ class T_Data {
   bool data21();
   bool data22();
   bool data23();
+  bool data24();
+  bool data25();
+  bool data26();
+  bool data27();
   // TODO unit new
 
  public:

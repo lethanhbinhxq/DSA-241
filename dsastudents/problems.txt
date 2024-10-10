@@ -20,6 +20,6 @@ or {3} ?
 
 *****************
 General problems with Test Data:
-    1. Behavior when batch_size > sample
-    2. When to call shuffle
-    3. Handle the case with empty label
+    1. Behavior when batch_size > sample -------> DONE
+    2. When to call shuffle -------> DONE
+    3. Handle the case with empty label -------> DONE

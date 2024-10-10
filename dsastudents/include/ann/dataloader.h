@@ -26,32 +26,26 @@ private:
     int batch_size;
     bool shuffle;
     bool drop_last;
+    int seed;
+    /*TODO: add more member variables to support the iteration*/
     xt::xarray<unsigned long> index_list;
     int batch_count;
-    /*TODO: add more member variables to support the iteration*/
 public:
     DataLoader(Dataset<DType, LType>* ptr_dataset,
             int batch_size,
             bool shuffle=true,
-            bool drop_last=false){
+            bool drop_last=false,
+            int seed=-1){
         /*TODO: Add your code to do the initialization */
         this->ptr_dataset = ptr_dataset;
         this->batch_size = batch_size;
         this->shuffle = shuffle;
         this->drop_last = drop_last;
+        this->seed = seed;
         
         int length = ptr_dataset->len();
         index_list = xt::arange<unsigned long>(length);
-        if (shuffle) {
-            xt::random::shuffle(index_list);
-        }
-
-        // batch_count = (length > batch_size) ? (int)(length / batch_size) : 1;
-        if (!drop_last && length <= batch_size) {
-            batch_count = 1;
-        } else {
-            batch_count = (int)(length / batch_size);
-        }
+        batch_count = (int)(length / batch_size);
     }
     virtual ~DataLoader(){}
     
@@ -94,31 +88,27 @@ public:
             }
             auto dataShape = this->loader->ptr_dataset->get_data_shape();
             auto labelShape = this->loader->ptr_dataset->get_label_shape();
-            dataShape[0] = labelShape[0] = endIndex - startIndex;
+            dataShape[0] = endIndex - startIndex;
             
             xt::xarray<DType> batchData = xt::empty<DType>(dataShape);
-            xt::xarray<LType> batchLabel = xt::empty<LType>(labelShape);
+            xt::xarray<LType> batchLabel;
+            bool labelFlag = (labelShape != xt::svector<unsigned long>());
+            if (labelFlag) {
+                labelShape[0] = dataShape[0];
+                batchLabel = xt::empty<LType>(labelShape);
+            }
 
-            // cout << "Data shape: (";
-            // for (auto dim : dataShape) {
-            //     cout << dim << ", ";
-            // }
-            // cout << ")" << endl;
-
-            // cout << "Batch Index: " << startIndex << " " << endIndex << endl;
-
-                // cout << "Index: ";
                 for (int i = startIndex; i < endIndex; i++) {
                     size_t index = loader->index_list[i];
                     DataLabel<DType, LType> dataLabel = loader->ptr_dataset->getitem(index);
-                    // cout << index << " ";
                     auto data = dataLabel.getData();
                     auto label = dataLabel.getLabel();
 
                     xt::view(batchData, i - startIndex, xt::all()) = data;
-                    xt::view(batchLabel, i - startIndex, xt::all()) = label;        
+                    if (labelFlag) {
+                        xt::view(batchLabel, i - startIndex, xt::all()) = label;
+                    }        
                 }
-                // cout << endl;
             return Batch<DType, LType>(batchData, batchLabel);
         }
 
@@ -137,6 +127,13 @@ public:
     };
 
     Iterator begin() {
+        if (shuffle) {
+            int m_seed = this->seed;
+            if (this->seed >= 0) {
+                xt::random::seed(m_seed);
+            }
+            xt::random::shuffle(index_list);
+        }
         return Iterator(this, 0);
     }
 
