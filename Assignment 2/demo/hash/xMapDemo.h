@@ -13,11 +13,12 @@
 
 #ifndef XHASHMAPDEMO_H
 #define XHASHMAPDEMO_H
-#include "hash/xMap.h"
-#include "util/Point.h"
-#include "util/ArrayLib.h"
-#include "util/sampleFunc.h"
-#include "util/FuncLib.h"
+#include "../../include/hash/xMap.h"
+#include "../../include/util/Point.h"
+#include "../../include/util/ArrayLib.h"
+#include "../../include/util/sampleFunc.h"
+#include "../dsaheader.h"
+// #include "util/FuncLib.h"
 
 
 int hashFunc(int& key, int tablesize) {
@@ -41,7 +42,7 @@ void simpleMap() {
 void hashDemo1() {
     int keys[] = {2, 12, 42, 72, 3, 45, 76, 30};
     int values[] = {35, 67, 100, 23, 68, 68, 72, 45};
-    xmap<int, int> hash(&xmap<int, int>::simpleHash);
+    xmap<int, int> hash(&xmap<int, int>::intKeyHash);
     for (int idx = 0; idx < 8; idx++) {
         hash.put(keys[idx], values[idx]);
     }
@@ -81,7 +82,7 @@ void hashDemo2() {
     int values[] = {35, 67, 100, 23, 68, 68, 72, 45};
 
     xmap<int, int*> hashMap(
-            &xmap<int, int*>::simpleHash,
+            &xmap<int, int*>::intKeyHash,
             0.75,
             &valueEQ,
             &xmap<int, int*>::freeValue,
@@ -142,7 +143,7 @@ void hashDemo4() {
 void hashDemo5() {
     int keys[] = {2, 12, 42, 72, 3, 45, 76, 30};
     int values[] = {35, 67, 100, 23, 68, 68, 72, 45};
-    xmap<int, int> hash(&xmap<int, int>::simpleHash);
+    xmap<int, int> hash(&xmap<int, int>::intKeyHash);
     for (int idx = 0; idx < 8; idx++) {
         hash.put(keys[idx], values[idx]);
     }
@@ -157,7 +158,7 @@ void hashDemo6() {
     int count = 10000000;
     //int count = 100;
     int *keys = genIntArray(count, 0, 1999999999);
-    xmap<int, int*> hash(&xmap<int, int*>::simpleHash);
+    xmap<int, int*> hash(&xmap<int, int*>::intKeyHash);
     for (int idx = 0; idx < count; idx++) {
         hash.put(keys[idx], 0);
     }

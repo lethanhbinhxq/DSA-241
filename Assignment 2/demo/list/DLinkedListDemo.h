@@ -21,13 +21,17 @@
 using namespace std;
 
 void dlistDemo1(){
-    List<int> dlist;
-    for(int i = 0; i< 20 ; i++)
-        dlist.add(i, i*i);
+    List<int> list;
+    List<int> dlist = list;
+    for(int i = 1; i<= 20 ; i++)
+        dlist.add(i*i);
     dlist.println();
     
-    for(List<int>::Iterator it=dlist.begin(); it != dlist.end(); it++ )
-        cout << *it << " ";
+    // for(List<int>::Iterator it=dlist.begin(); it != dlist.end(); it++ )
+    //     cout << *it << " ";
+
+    for(auto it : dlist)
+        cout << it << " ";
     cout << endl;
 }
 void dlistDemo2(){

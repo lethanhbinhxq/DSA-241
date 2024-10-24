@@ -182,6 +182,7 @@ public:
             {
                 if (pList != 0)
                     this->pNode = pList->tail;
+                
                 else
                     pNode = 0;
             }
@@ -328,8 +329,8 @@ template <class T>
 DLinkedList<T>::DLinkedList(const DLinkedList<T> &list)
 {
     // TODO
-    this->head = new Node();
-    this->tail = new Node();
+    // this->head = new Node();
+    // this->tail = new Node();
     copyFrom(list);
 }
 
@@ -570,20 +571,23 @@ void DLinkedList<T>::copyFrom(const DLinkedList<T> &list)
      * Iterates through the source list and adds each element, preserving the order of the nodes.
      */
     // TODO
+    this->head = new Node();
+    this->tail = new Node();
+
     this->head->next = this->tail;
     this->head->prev = nullptr;
     this->tail->prev = this->head;
     this->tail->next = nullptr;
-    this->count = 0;
 
     this->deleteUserData = list.deleteUserData;
     this->itemEqual = list.itemEqual;
 
     Node *pNode = list.head->next;
-    while (pNode != nullptr) {
+    while (pNode != list.tail) {
         this->add(pNode->data);
         pNode = pNode->next;
     }
+    this->count = list.count;
 }
 
 template <class T>
