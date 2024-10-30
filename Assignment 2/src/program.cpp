@@ -19,8 +19,9 @@ namespace fs = std::filesystem;
 // #include "modelzoo/twoclasses.h"
 // #include "modelzoo/threeclasses.h"
 #include "list/listheader.h"
-#include "../demo/hash/xMapDemo.h"
-#include "../demo/list/DLinkedListDemo.h"
+// #include "../demo/hash/xMapDemo.h"
+// #include "../demo/list/DLinkedListDemo.h"
+#include "../demo/heap/HeapDemo.h"
 
 
 int main(int argc, char** argv) {
@@ -50,6 +51,13 @@ int main(int argc, char** argv) {
     // hashDemo5();
     // hashDemo6();
     // hashDemo7();
-    countryDemo();
+    // countryDemo();
+
+    // Heap
+    // anotherHeap();
+    // simpleMinHeap();
+    // heapDemo1();
+    // heapDemo2();
+    // heapDemo3();
     return 0;
 }
