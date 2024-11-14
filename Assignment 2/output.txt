@@ -1,0 +1,199 @@
+./program
+(200, 3)
+Train dataset: 200
+Valid dataset: 200
+Test dataset: 200
+Start the training ...
+FC forward: Y = { 1.152618, -0.036357,  1.401877,  2.958524, -1.118606, -0.211939,
+ -0.26129 ,  0.789189, -0.760658, -0.246299, -1.870781,  1.849728,
+  3.834429, -1.82809 , -1.612057,  0.007129, -1.277767,  2.019074,
+  0.773748,  0.915793, -1.208348,  2.079128,  0.144189,  0.444565,
+ -0.6922  ,  2.797388,  1.079041, -0.075581,  2.081879, -1.13178 ,
+ -1.026254, -0.93276 ,  0.883799, -0.012793, -1.289234,  2.856052,
+  3.836411,  1.908274,  1.15976 ,  2.061674,  0.602898, -2.565351,
+ -1.018872,  2.370897,  0.103582, -0.937884,  2.818878, -0.335621,
+ -0.074209,  0.946851}
+ReLu forward: Y = { 1.152618,  0.      ,  1.401877,  2.958524,  0.      ,  0.      ,
+  0.      ,  0.789189,  0.      ,  0.      ,  0.      ,  1.849728,
+  3.834429,  0.      ,  0.      ,  0.007129,  0.      ,  2.019074,
+  0.773748,  0.915793,  0.      ,  2.079128,  0.144189,  0.444565,
+  0.      ,  2.797388,  1.079041,  0.      ,  2.081879,  0.      ,
+  0.      ,  0.      ,  0.883799,  0.      ,  0.      ,  2.856052,
+  3.836411,  1.908274,  1.15976 ,  2.061674,  0.602898,  0.      ,
+  0.      ,  2.370897,  0.103582,  0.      ,  2.818878,  0.      ,
+  0.      ,  0.946851}
+FC forward: Y = {-4.419686,  8.120643}
+Softmax forward: Y = { 0.000004,  0.999996}
+CE forward: Loss = 6.28126
+CE backward: {-5587.472466,    -0.      }
+Softmax backward: { 392156.069599,       0.360349}
+FC backward: {-128480.046815, -337881.797539, -101248.552147,  180766.859746,
+ -529171.762623, -399635.33904 ,   49809.298763, -489976.790864,
+  762788.673034,  -60131.990777, -355680.539514, -320530.254211,
+ -189459.476199, -223461.474265, -820233.557038,  495583.595397,
+   -6071.515898,  -10736.183725,  320734.101937, -413569.509878,
+ -297382.251976,  179378.239714,  -25246.010304,  135255.961758,
+  -31407.407373,  -94658.280794,  562161.447087,  417957.061607,
+ -979904.593074,  580519.539787,  846558.493439,  483049.225285,
+  -84048.811903, -270272.096112,  285424.484569, -242771.463362,
+  139670.408429,   -8581.399771,  477666.68258 , -152728.267604,
+ -173647.436835,  148323.324754,  758367.003617,   31753.359464,
+ -163315.945596,  336275.426578,  281618.833732, -373125.903626,
+ -210258.124517,  430010.58154 }
+ReLu backward{-128480.046815,       0.      , -101248.552147,  180766.859746,
+       0.      ,       0.      ,       0.      , -489976.790864,
+       0.      ,       0.      ,       0.      , -320530.254211,
+ -189459.476199,       0.      ,       0.      ,  495583.595397,
+       0.      ,  -10736.183725,  320734.101937, -413569.509878,
+       0.      ,  179378.239714,  -25246.010304,  135255.961758,
+       0.      ,  -94658.280794,  562161.447087,       0.      ,
+ -979904.593074,       0.      ,       0.      ,       0.      ,
+  -84048.811903,       0.      ,       0.      , -242771.463362,
+  139670.408429,   -8581.399771,  477666.68258 , -152728.267604,
+ -173647.436835,       0.      ,       0.      ,   31753.359464,
+ -163315.945596,       0.      ,  281618.833732,       0.      ,
+       0.      ,  430010.58154 }
+FC backward: { 832592.099082, -759293.226308}
+  1/ 10|   1|   6.28   6.41 |   0.26
+FC forward: Y = {  -10.742985,   206.270128,   -93.538548,  -667.249269,  -215.072358,
+  -237.318674,  -317.604958,   681.616261,  -421.496959,  -286.55741 ,
+  -204.470872,   417.69459 ,   127.392357,  -265.404237,    24.877843,
+  -748.959008,  -301.711249,  -282.036519,  -987.998786,   573.024786,
+  -220.845117,  -707.331015,  -264.874963,  -529.235901,  -292.428802,
+   -90.664959, -1270.606703,  -616.040875,  1382.816613,  -750.073478,
+  -641.713981,  -573.018159,  -125.939151,   -81.060332,  -578.829711,
+   221.982261,  -620.48992 ,  -284.641106, -1382.997201,    15.488082,
+    64.291061,  -362.149261,  -420.653771,  -371.817084,   -32.335522,
+  -535.339428,  -947.315913,   -80.340973,  -129.982338, -1269.560229}
+ReLu forward: Y = {    0.      ,   206.270128,     0.      ,     0.      ,     0.      ,
+     0.      ,     0.      ,   681.616261,     0.      ,     0.      ,
+     0.      ,   417.69459 ,   127.392357,     0.      ,    24.877843,
+     0.      ,     0.      ,     0.      ,     0.      ,   573.024786,
+     0.      ,     0.      ,     0.      ,     0.      ,     0.      ,
+     0.      ,     0.      ,     0.      ,  1382.816613,     0.      ,
+     0.      ,     0.      ,     0.      ,     0.      ,     0.      ,
+   221.982261,     0.      ,     0.      ,     0.      ,    15.488082,
+    64.291061,     0.      ,     0.      ,     0.      ,     0.      ,
+     0.      ,     0.      ,     0.      ,     0.      ,     0.      }
+FC forward: Y = {-5590558.629374, -5587646.167505}
+Softmax forward: Y = {-nan, -nan}
+CE forward: Loss = -nan
+CE backward: {-nan, -nan}
+Softmax backward: {-nan, -nan}
+FC backward: {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu backward{-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC backward: {-nan, -nan}
+  1/ 10|   2| -nan   -nan   |   0.35
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+CE forward: Loss = -nan
+CE backward: {-nan, -nan}
+Softmax backward: {-nan, -nan}
+FC backward: {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu backward{-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC backward: {-nan, -nan}
+  1/ 10|   3| -nan   -nan   |   0.37
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+CE forward: Loss = -nan
+CE backward: {-nan, -nan}
+Softmax backward: {-nan, -nan}
+FC backward: {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu backward{-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC backward: {-nan, -nan}
+  1/ 10|   4| -nan   -nan   |   0.41
+Validation results:
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+{ 0.5     ,      -nan,      -nan,  0.5     ,  0.5     ,  0.333333,
+  0.333333}
+End the training ...
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+FC forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+ReLu forward: Y = {-nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan,
+ -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan, -nan}
+FC forward: Y = {-nan, -nan}
+Softmax forward: Y = {-nan, -nan}
+Evaluation result on the testing dataset:
+{ 0.5     ,      -nan,      -nan,  0.5     ,  0.5     ,  0.333333,
+  0.333333}

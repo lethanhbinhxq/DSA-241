@@ -27,9 +27,25 @@ Sigmoid::~Sigmoid() {
 }
 xt::xarray<double> Sigmoid::forward(xt::xarray<double> X) {
     //YOUR CODE IS HERE
+    xt::xarray<double> Y = 1 / (1 + xt::exp(-X));
+    if (this->m_trainable) {
+        this->m_aCached_Y = Y;
+    }
+    // cout << "Layer: " << getname() << endl;
+    // cout << "Forward" << endl;
+    // cout << "Shape X = " << shape2str(X.shape()) << endl;
+    // cout << "Shape Y = " << shape2str(Y.shape()) << endl;
+    cout << "Sigmoid forward: Y = " << xt::view(Y, 0) << endl;
+    return Y;
 }
 xt::xarray<double> Sigmoid::backward(xt::xarray<double> DY) {
     //YOUR CODE IS HERE
+    xt::xarray<double> DX = DY * this->m_aCached_Y * (1 - this->m_aCached_Y);
+    // cout << "Backward" << endl;
+    // cout << "Shape DY = " << shape2str(DY.shape()) << endl;
+    // cout << "Shape DX = " << shape2str(DX.shape()) << endl;
+    // cout << "Sigmoid backward: " << xt::view(DX, 0) << endl;
+    return DX;
 }
 
 string Sigmoid::get_desc(){

@@ -60,13 +60,21 @@ double_tensor MLPClassifier::predict(double_tensor X, bool make_decision){
     //DO the inference
     
     //YOUR CODE IS HERE
+    for (auto layer : this->m_layers) {
+        X = layer->forward(X);
+    }
+
+    double_tensor Y = X;
     
     //RESTORE the previous mode
     this->set_working_mode(old_mode);
     
     //RETURN
-    if(make_decision) return Y;
-    else return xt::argmax(Y, -1);
+    // if(make_decision) return Y;
+    // else return xt::argmax(Y, -1);
+
+    if(make_decision) return xt::argmax(Y, -1);
+    else return Y;
 }
 
 double_tensor MLPClassifier::predict(
@@ -89,14 +97,29 @@ double_tensor MLPClassifier::predict(
     unsigned long long nsamples = 0;
     for(auto batch: *pLoader){
         //YOUR CODE IS HERE
+        double_tensor X = batch.getData();
+        double_tensor Y = predict(X, make_decision);
+        if (first_batch) {
+            results = Y;
+            first_batch = false;
+        } else {
+            results = xt::concatenate(xt::xtuple(results, Y), 0);
+        }
+        nsamples += X.shape()[0];
+        cout << fmt::format("{:<6s}/{:<12s}|{:<50s}\n",
+                    batch_idx, total_batch, nsamples);
+        batch_idx++;
     }
     cout << "Prediction: End" << endl;
     
     //restore the old mode
     this->set_working_mode(old_mode);
     
-    if(make_decision) return results;
-    else return xt::argmax(results, -1);
+    // if(make_decision) return results;
+    // else return xt::argmax(results, -1);
+
+    if(make_decision) xt::argmax(results, -1);
+    else return results;
 }
 
 
@@ -108,9 +131,22 @@ double_tensor MLPClassifier::evaluate(DataLoader<double, double>* pLoader){
     meter.reset_metrics();
     
     //YOUR CODE IS HERE
+    int total_batch = pLoader->get_total_batch(); 
+    int batch_idx = 1;
+    unsigned long long nsamples = 0;
+    for (auto batch : *pLoader) {
+        double_tensor X = batch.getData();
+        double_tensor Y_pred = predict(X, true);
+        double_tensor Y_true = batch.getLabel();
+
+        meter.accumulate(Y_true, Y_pred);
+        nsamples += X.shape()[0];
+        batch_idx++;
+    }
 
     //
     this->set_working_mode(old_mode);
+    double_tensor metrics = meter.get_metrics();
     return metrics;
 }
 //for the inference mode:end
@@ -145,9 +181,27 @@ void MLPClassifier::set_working_mode(bool trainable){
 //protected: for the training mode: begin
 double_tensor MLPClassifier::forward(double_tensor X){
     //YOUR CODE IS HERE
+    // cout << "X before forward: " << xt::view(X, 0) << endl;
+    for (auto layer : this->m_layers) {
+        X = layer->forward(X);
+    }
+    return X;
 }
 void MLPClassifier::backward(){
     //YOUR CODE IS HERE
+    int count = 0;
+    double_tensor grad =  this->m_pLossLayer->backward();
+    for (auto it = this->m_layers.bbegin(); it != this->m_layers.bend(); --it) {
+        auto layer = *it;
+        // cout << "Layer: " << layer->getname() << endl;
+        grad = layer->backward(grad);
+        // grad = xt::clip(grad, -1.0, 1.0);
+        // layer->backward(grad);
+        // count++;
+        // if (count == 2) break;
+        // break;
+    }
+    this->m_pOptimizer->step();
 }
 //protected: for the training mode: end
 
@@ -172,8 +226,8 @@ bool MLPClassifier::save(string model_path){
         }
         cout << model_path << ": creation" << endl;
         fs::create_directories(model_path);
-        string arch_file =  fs::path(model_path)/
-                            fs::path(m_pConfig->get("arch_file", "arch.txt"));
+        string arch_file =  (fs::path(model_path)/
+                            fs::path(m_pConfig->get("arch_file", "arch.txt"))).string();
 
         //open stream
         ofstream datastream(arch_file);

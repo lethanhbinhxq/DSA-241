@@ -144,9 +144,46 @@ FCLayer::~FCLayer() {
 
 xt::xarray<double> FCLayer::forward(xt::xarray<double> X) {
     //YOUR CODE IS HERE
+    if (this->m_trainable) {
+        this->m_aCached_X = X;
+    }
+    xt::xarray<double> Y = xt::linalg::tensordot(X, xt::transpose(this->m_aWeights), 1);
+    if (this->m_bUse_Bias) {
+        Y += this->m_aBias;
+    }
+    // cout << "Layer: " << getname() << endl;
+    // cout << "FC Forward" << endl;
+    // cout << "Shape X = " << shape2str(X.shape()) << endl;
+    // cout << "Shape Y = " << shape2str(Y.shape()) << endl;
+    cout << "FC forward: Y = " << xt::view(Y, 0) << endl;
+    // cout << "X = " << xt::view(X, 0) << endl;
+    // cout << "Weight = " << xt::view(m_aWeights, 0) << endl;
+    return Y;
 }
 xt::xarray<double> FCLayer::backward(xt::xarray<double> DY) {
     //YOUR CODE IS HERE
+    this->m_unSample_Counter += DY.shape()[0];
+    // cout << "FC Backward" << endl;
+    // cout << "Shape DY = " << shape2str(DY.shape()) << endl;
+    // cout << "Shape cached_X = " << shape2str(this->m_aCached_X.shape()) << endl;
+    // xt::xarray<double> DW = xt::linalg::tensordot(DY, xt::transpose(this->m_aCached_X), {0}, {0});
+    // xt::xarray<double> DW = xt::linalg::tensordot(DY, this->m_aCached_X, 0);
+    xt::xarray<double> DW = xt::linalg::outer(DY, xt::transpose(this->m_aCached_X));
+    // cout << "Shape DW = " << shape2str(DW.shape()) << endl;
+    this->m_aGrad_W += xt::mean(DW, {0});
+    // this->m_aGrad_W += xt::sum(DW);
+    if (this->m_bUse_Bias) {
+        this->m_aGrad_b += xt::mean(DY, {0});
+        // this->m_aGrad_b += xt::sum(DY);
+    }
+    xt::xarray<double> DX = xt::linalg::dot(DY, m_aWeights);
+    // xt::xarray<double> DX = xt::linalg::tensordot(DY, m_aWeights, 1);
+    // cout << "Shape DW = " << shape2str(DW.shape()) << endl;
+    // cout << "Shape W = " << shape2str(m_aGrad_W.shape()) << endl;
+    // cout << "Shape DY = " << shape2str(DY.shape()) << endl;
+    // cout << "Shape DX = " << shape2str(DX.shape()) << endl;
+    cout << "FC backward: " << xt::view(DX, 0) << endl;
+    return DX;
 }
 
 int FCLayer::register_params(IParamGroup* ptr_group){

@@ -35,15 +35,24 @@ void IModel::fit(DataLoader<double, double>* pTrainLoader,
             
             //(0) Set gradient buffer to zeros
             //YOUR CODE IS HERE
+            this->m_pOptimizer->zero_grad();
             
             //(1) FORWARD-Pass
             //YOUR CODE IS HERE
+            // cout << "Target: t = " << xt::view(t, 0) << endl;
+            double_tensor Y = forward(X);
+            // cout << "Forward pass: Y = " << xt::view(Y, 0) << endl;
             
             //(2) BACKWARD-Pass
             //YOUR CODE IS HERE
+            double batch_loss = this->m_pLossLayer->forward(Y, t);
+            this->m_epoch_loss += batch_loss;
+            // cout << "Batch loss: " << batch_loss << endl;
+            backward();
             
             //(3) UPDATE learnable parameters
             //YOUR CODE IS HERE
+            this->m_pOptimizer->step();
             
             //Record the performance for each batch
             ulong_tensor y_true = xt::argmax(t, 1);
@@ -53,6 +62,8 @@ void IModel::fit(DataLoader<double, double>* pTrainLoader,
             on_end_step(batch_loss);
         }//for-each batch: end
         on_end_epoch();
+        // if (epoch == 2) break;
+        break;
     }//for-epoch: end
     on_end_training();
 }

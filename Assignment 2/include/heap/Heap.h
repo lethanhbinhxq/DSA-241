@@ -14,6 +14,8 @@
 #ifndef HEAP_H
 #define HEAP_H
 #include <memory.h>
+#include <iostream>
+#include <iomanip>
 #include "heap/IHeap.h"
 #include <sstream>
 /*
@@ -83,7 +85,9 @@ public:
      *  => Destructor will call free via function pointer "deleteUserData"
      */
     static void free(Heap<T> *pHeap){
-        for(int idx=0; idx < pHeap->count; idx++) delete pHeap->elements[idx];
+        for(int idx=0; idx < pHeap->count; idx++) {
+            delete pHeap->elements[idx];
+        }
     }
     
     
@@ -258,7 +262,7 @@ void Heap<T>::remove(T item, void (*removeItemData)(T)){
     int foundIdx = getItem(item);
     if (foundIdx == -1) return;
     this->elements[foundIdx] = this->elements[this->count - 1];
-    if (removeItemData) removeItemData(this->elements[this->count - 1]);
+    if (removeItemData) removeItemData(item);
     this->count--;
     reheapDown(foundIdx);
 }
@@ -408,11 +412,11 @@ void Heap<T>::copyFrom(const Heap<T>& heap){
     count = heap.count;
     elements = new T[capacity];
     this->comparator = heap.comparator;
-    this->deleteUserData = heap.deleteUserData;
+    this->deleteUserData = nullptr;
     
     //Copy items from heap:
-    for(int idx=0; idx < heap.size(); idx++){
-        this->elements[idx] = heap.elements[idx];
+    for(int idx=0; idx < count; idx++){
+        elements[idx] = heap.elements[idx];
     }
 }
 

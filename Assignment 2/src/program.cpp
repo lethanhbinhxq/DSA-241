@@ -21,7 +21,8 @@ namespace fs = std::filesystem;
 #include "list/listheader.h"
 // #include "../demo/hash/xMapDemo.h"
 // #include "../demo/list/DLinkedListDemo.h"
-#include "../demo/heap/HeapDemo.h"
+// #include "../demo/heap/HeapDemo.h"
+#include "tc_sample (2).h"
 
 
 int main(int argc, char** argv) {
@@ -59,5 +60,8 @@ int main(int argc, char** argv) {
     // heapDemo1();
     // heapDemo2();
     // heapDemo3();
+
+    // MLP
+    mlpDemo1();
     return 0;
 }

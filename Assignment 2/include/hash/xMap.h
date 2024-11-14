@@ -94,6 +94,9 @@ public:
     static int intKeyHash(int& key, int capacity){
         return key%capacity;
     }
+    static int simpleHash(int& key, int capacity){
+        return key%capacity;
+    }
     static int stringKeyHash(string& key, int capacity){
         long long int sum = 0;
         for (int idx = 0; idx < key.length(); idx++) sum += key[idx];
@@ -528,7 +531,7 @@ void xMap<K,V>::removeInternalData(){
 
 template<class K, class V>
 void xMap<K,V>::copyMapFrom(const xMap<K,V>& map){
-    removeInternalData();
+    // removeInternalData();
     
     this->capacity = map.capacity;
     this->count = 0;
