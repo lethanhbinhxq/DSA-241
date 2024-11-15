@@ -63,5 +63,9 @@ int main(int argc, char** argv) {
 
     // MLP
     mlpDemo1();
+
+    // test_forward_batch();
+    // test_backward_batch();
+    // test_softmax_backward();
     return 0;
 }

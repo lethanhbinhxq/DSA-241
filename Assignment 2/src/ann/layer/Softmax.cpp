@@ -30,40 +30,36 @@ Softmax::~Softmax() {
 
 xt::xarray<double> Softmax::forward(xt::xarray<double> X) {
     //YOUR CODE IS HERE
-    xt::xarray<double> expX = xt::exp(X);
-    xt::xarray<double> sumExpX = xt::sum(expX, {this->m_nAxis}, xt::keep_dims);
-    xt::xarray<double> Y = expX / sumExpX;
+    size_t N = X.shape()[0];
+    xt::xarray<double> Y = xt::zeros<double>(X.shape());
+    for (size_t i = 0; i < N; i++) {
+        auto x_i = xt::view(X, i, xt::all());
+        auto e_x = xt::exp(x_i);
+        auto sum_e = xt::sum(e_x)();
+        auto y_i = e_x / sum_e;
+        xt::view(Y, i, xt::all()) = e_x / sum_e;
+    }
     if (this->m_trainable) {
         this->m_aCached_Y = Y;
     }
-    // cout << "Layer: " << getname() << endl;
-    // cout << "Softmax Forward" << endl;
+    // cout << "Softmax forward: Y = " << xt::view(Y, 0) << endl;
     // cout << "Shape X = " << shape2str(X.shape()) << endl;
     // cout << "Shape Y = " << shape2str(Y.shape()) << endl;
-    cout << "Softmax forward: Y = " << xt::view(Y, 0) << endl;
     return Y;
 }
 xt::xarray<double> Softmax::backward(xt::xarray<double> DY) {
     //YOUR CODE IS HERE
-    // cout << "DY = " << DY << endl;
-    xt::xarray<double> diagY = xt::diag(this->m_aCached_Y);
-    // cout << "Shape m_aCached_Y = " << shape2str(m_aCached_Y.shape()) << endl;
-    // cout << "Shape diagY = " << shape2str(diagY.shape()) << endl;
-    // cout << "Shape transpose: " << shape2str(xt::transpose(this->m_aCached_Y).shape()) << endl;
-
-    // cout << "Shape delta Y = " << shape2str(DY.shape()) << endl;
-
-    // xt::xarray<double> outer = xt::linalg::tensordot(this->m_aCached_Y, xt::transpose(this->m_aCached_Y), 0);
-
-    xt::xarray<double> outer = xt::linalg::tensordot(this->m_aCached_Y, xt::transpose(this->m_aCached_Y), 1);
-
-    // cout << "Shape outer = " << shape2str(outer.shape()) << endl;
-    xt::xarray<double> DZ = xt::linalg::tensordot(diagY - outer, DY, 1);
-    // cout << "Softmax Backward" << endl;
-    // cout << "Shape DY = " << shape2str(DY.shape()) << endl;
-    // cout << "Shape DX: " << shape2str(DZ.shape()) << endl;
-    cout << "Softmax backward: " << xt::view(DZ, 0) << endl;
-    return DZ;
+    size_t N = DY.shape()[0];
+    xt::xarray<double> DX = xt::zeros<double>(DY.shape());
+    for (size_t i = 0; i < N; i++) {
+        auto y_i = xt::view(this->m_aCached_Y, i, xt::all());
+        auto dy_i = xt::view(DY, i, xt::all());
+        auto diag_y = xt::diag(y_i);
+        auto outer = xt::linalg::outer(y_i, xt::transpose(y_i));
+        xt::view(DX, i, xt::all()) = xt::linalg::tensordot((diag_y - outer), dy_i, {1}, {0});
+    }
+    // cout << "Softmax backward: " << xt::view(DX, 0) << endl;
+    return DX;
 
     // return outer;
 }

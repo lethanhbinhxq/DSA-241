@@ -70,11 +70,11 @@ double_tensor MLPClassifier::predict(double_tensor X, bool make_decision){
     this->set_working_mode(old_mode);
     
     //RETURN
-    // if(make_decision) return Y;
-    // else return xt::argmax(Y, -1);
+    if(make_decision) return Y;
+    else return xt::argmax(Y, -1);
 
-    if(make_decision) return xt::argmax(Y, -1);
-    else return Y;
+    // if(make_decision) return xt::argmax(Y, -1);
+    // else return Y;
 }
 
 double_tensor MLPClassifier::predict(
@@ -115,11 +115,11 @@ double_tensor MLPClassifier::predict(
     //restore the old mode
     this->set_working_mode(old_mode);
     
-    // if(make_decision) return results;
-    // else return xt::argmax(results, -1);
+    if(make_decision) return results;
+    else return xt::argmax(results, -1);
 
-    if(make_decision) xt::argmax(results, -1);
-    else return results;
+    // if(make_decision) xt::argmax(results, -1);
+    // else return results;
 }
 
 
@@ -136,10 +136,13 @@ double_tensor MLPClassifier::evaluate(DataLoader<double, double>* pLoader){
     unsigned long long nsamples = 0;
     for (auto batch : *pLoader) {
         double_tensor X = batch.getData();
-        double_tensor Y_pred = predict(X, true);
-        double_tensor Y_true = batch.getLabel();
+        double_tensor Y = forward(X);
+        double_tensor t = batch.getLabel();
 
-        meter.accumulate(Y_true, Y_pred);
+        auto Y_true = xt::argmax(t, 1);
+        auto Y_predict = xt::argmax(Y, 1);
+
+        meter.accumulate(Y_true, Y_predict);
         nsamples += X.shape()[0];
         batch_idx++;
     }

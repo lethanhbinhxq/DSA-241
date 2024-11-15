@@ -35,7 +35,7 @@ xt::xarray<double> Sigmoid::forward(xt::xarray<double> X) {
     // cout << "Forward" << endl;
     // cout << "Shape X = " << shape2str(X.shape()) << endl;
     // cout << "Shape Y = " << shape2str(Y.shape()) << endl;
-    cout << "Sigmoid forward: Y = " << xt::view(Y, 0) << endl;
+    // cout << "Sigmoid forward: Y = " << xt::view(Y, 0) << endl;
     return Y;
 }
 xt::xarray<double> Sigmoid::backward(xt::xarray<double> DY) {
