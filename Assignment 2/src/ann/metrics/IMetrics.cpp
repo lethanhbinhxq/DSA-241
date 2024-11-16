@@ -30,6 +30,6 @@ void IMetrics::accumulate(double_tensor y_true, double_tensor y_pred){
     m_sample_counter += batch_size;
     m_metrics = prev_nsamples*m_metrics + batch_size*calculate_metrics(y_true, y_pred);
     m_metrics = m_metrics/m_sample_counter;
-    //cout << "bcc: " << calc_metrics(y_true, y_pred) << endl;
-    //cout << "acc: " << m_train_metrics << endl;
+    // cout << "bcc: " << calc_metrics(y_true, y_pred) << endl;
+    // cout << "acc: " << m_train_metrics << endl;
 }

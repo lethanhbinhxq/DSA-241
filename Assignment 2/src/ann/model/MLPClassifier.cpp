@@ -56,11 +56,15 @@ double_tensor MLPClassifier::predict(double_tensor X, bool make_decision){
     //SWITCH to inference mode
     bool old_mode = this->m_trainable;
     this->set_working_mode(false);
+    if (X.dimension() == 1) {
+        X = xt::view(X, xt::newaxis(), xt::all());
+    }
     
     //DO the inference
     
     //YOUR CODE IS HERE
     for (auto layer : this->m_layers) {
+        // cout << layer->getname() << endl;
         X = layer->forward(X);
     }
 
@@ -99,6 +103,7 @@ double_tensor MLPClassifier::predict(
         //YOUR CODE IS HERE
         double_tensor X = batch.getData();
         double_tensor Y = predict(X, make_decision);
+        cout << "Predict result Y: " << Y << endl;
         if (first_batch) {
             results = Y;
             first_batch = false;
@@ -106,7 +111,7 @@ double_tensor MLPClassifier::predict(
             results = xt::concatenate(xt::xtuple(results, Y), 0);
         }
         nsamples += X.shape()[0];
-        cout << fmt::format("{:<6s}/{:<12s}|{:<50s}\n",
+        cout << fmt::format("{:<6d}/{:<12d}|{:<50d}\n",
                     batch_idx, total_batch, nsamples);
         batch_idx++;
     }
@@ -198,13 +203,7 @@ void MLPClassifier::backward(){
         auto layer = *it;
         // cout << "Layer: " << layer->getname() << endl;
         grad = layer->backward(grad);
-        // grad = xt::clip(grad, -1.0, 1.0);
-        // layer->backward(grad);
-        // count++;
-        // if (count == 2) break;
-        // break;
     }
-    this->m_pOptimizer->step();
 }
 //protected: for the training mode: end
 
