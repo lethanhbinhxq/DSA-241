@@ -33,8 +33,9 @@ int main(int argc, char** argv) {
     
     //Classification:
     // twoclasses_classification();
-    twoclasses_classification_predict();
-    //threeclasses_classification();
+    // twoclasses_classification_predict();
+    // threeclasses_classification();
+    // threeclasses_classification_predict();
 
     // Doubly linked list
     // dlistDemo1();
@@ -63,7 +64,7 @@ int main(int argc, char** argv) {
     // heapDemo3();
 
     // MLP
-    // mlpDemo1();
+    mlpDemo1();
     // mlpDemo2();
     // mlpDemo3();
 
