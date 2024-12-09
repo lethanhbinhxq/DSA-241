@@ -30,12 +30,19 @@ protected:
 public:
     TopoSorter(DGraphModel<T>* graph, int (*hash_code)(T&, int)=0){
         //TODO
+        this->graph = graph;
+        this->hash_code = hash_code;
     }   
     DLinkedList<T> sort(int mode=0, bool sorted=true){
         //TODO
+        if (mode == DFS) {
+            return dfsSort(sorted);
+        }
+        return bfsSort(sorted);
     }
     DLinkedList<T> bfsSort(bool sorted=true){ 
         //TODO
+        DLinkedList<T> 
     }
 
     DLinkedList<T> dfsSort(bool sorted=true){

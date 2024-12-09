@@ -37,34 +37,48 @@ public:
     }
     void push(T item){
         //TODO: add item to the top
+        this->list.add(0, item);
     }
     T pop(){
         //TODO: remove and return the top item
-        return T{}; //Placeholder
+        // return T{}; //Placeholder
+        if (!(this->list.empty())) {
+            return this->list.removeAt(0);
+        }
+        throw Underflow("Stack");
     }
     T& peek(){
         //TODO: return the top item
-        return T{}; //Placeholder
+        // return T{}; //Placeholder
+        if (!(this->list.empty())) {
+            return this->list.get(0);
+        }
+        throw Underflow("Stack");
     }    
     bool empty(){
         //TODO: check if the stack is empty
-        return false;
+        // return false;
+        return (this->list.empty());
     }
     int size(){
         //TODO: return the number of items in the stack
-        return 0;
+        // return 0;
+        return this->list.size();
     }
     void clear(){
         //TODO: remove all items in the stack
+        this->list.clear();
     }
     bool remove(T item){
         //TODO: remove the first occurrence of the item
         //     return true if the item is removed successfully
-        return false;
+        // return false;
+        return this->list.removeItem(item);
     }
     bool contains(T item){
         //TODO: check if the item is in the stack
-        return false;
+        // return false;
+        return this->list.contains(item);
     }
     string  toString(string (*item2str)(T&)=0 ){
         stringstream os;
