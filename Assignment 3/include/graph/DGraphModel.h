@@ -38,52 +38,62 @@ public:
     
     void connect(T from, T to, float weight=0){
         //TODO
-        VertexNode* fromNode = getVertexNode(from);
-        VertexNode* toNode = getVertexNode(to);
+        typename AbstractGraph<T>::VertexNode* fromNode = this->getVertexNode(from);
+        typename AbstractGraph<T>::VertexNode* toNode = this->getVertexNode(to);
         if (fromNode && toNode) {
             fromNode->connect(toNode, weight);
         }
         else {
-            VertexNode missingNode;
-            if (!fromNode) missingNode = *fromNode;
-            else missingNode = *toNode;
-            throw VertexNotFoundException(vertex2Str(missingNode));
+            if (!fromNode) {
+                typename AbstractGraph<T>::VertexNode missingNode(from, this->vertexEQ, this->vertex2str);
+                throw VertexNotFoundException(this->vertex2Str(missingNode));
+            }
+            if (!toNode) {
+                typename AbstractGraph<T>::VertexNode missingNode(to, this->vertexEQ, this->vertex2str);
+                throw VertexNotFoundException(this->vertex2Str(missingNode));
+            }
         }
     }
     void disconnect(T from, T to){
         //TODO
-        VertexNode* fromNode = getVertexNode(from);
-        VertexNode* toNode = getVertexNode(to);
+        typename AbstractGraph<T>::VertexNode* fromNode = this->getVertexNode(from);
+        typename AbstractGraph<T>::VertexNode* toNode = this->getVertexNode(to);
         if (fromNode && toNode) {
-            Edge* edge = fromNode->getEdge(toNode);
+            typename AbstractGraph<T>::Edge* edge = fromNode->getEdge(toNode);
             if (edge) {
                 fromNode->removeTo(toNode);
             }
             else {
-                throw EdgeNotFoundException(edge2Str(*edge));
+                typename AbstractGraph<T>::Edge missingEdge(fromNode, toNode);
+                throw EdgeNotFoundException(this->edge2Str(missingEdge));
             }
         }
         else {
-            VertexNode missingNode;
-            if (!fromNode) missingNode = *fromNode;
-            else missingNode = *toNode;
-            throw VertexNotFoundException(vertex2Str(missingNode));
+            if (!fromNode) {
+                typename AbstractGraph<T>::VertexNode missingNode(from, this->vertexEQ, this->vertex2str);
+                throw VertexNotFoundException(this->vertex2Str(missingNode));
+            }
+            if (!toNode) {
+                typename AbstractGraph<T>::VertexNode missingNode(to, this->vertexEQ, this->vertex2str);
+                throw VertexNotFoundException(this->vertex2Str(missingNode));
+            }
         }
     }
     void remove(T vertex){
         //TODO
-        VertexNode* node = getVertexNode(vertex);
+        typename AbstractGraph<T>::VertexNode* node = this->getVertexNode(vertex);
         if (node) {
             for (auto vertex : this->nodeList) {
-                Edge* edge1 = vertex->getEdge(node);
-                Edge* edge2 = node->getEdge(vertex);
+                typename AbstractGraph<T>::Edge* edge1 = vertex->getEdge(node);
+                typename AbstractGraph<T>::Edge* edge2 = node->getEdge(vertex);
                 if (edge1) vertex->removeTo(node);
-                if (edge2) node->removeFrom(vertex);
+                if (edge2) node->removeTo(vertex);
             }
             this->nodeList.removeItem(node);
         }
         else {
-            throw VertexNotFoundException(vertex2Str(*node));
+            typename AbstractGraph<T>::VertexNode missingNode(vertex, this->vertexEQ, this->vertex2str);
+            throw VertexNotFoundException(this->vertex2Str(missingNode));
         }
     }
     

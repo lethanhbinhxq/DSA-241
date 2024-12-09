@@ -4,14 +4,48 @@
 #include "graph/DGraphModel.h"
 #include "graph/UGraphModel.h"
 #include "library.hpp"
+
+bool charComparator(char &lhs, char &rhs);
+string vertex2str(char &v);
+
 class UNIT_TEST_Graph {
  public:
   UNIT_TEST_Graph() {
     // TODO unit test new
+    registerTest("graph01", &UNIT_TEST_Graph::graph01);
+    registerTest("graph02", &UNIT_TEST_Graph::graph02);
+    registerTest("graph03", &UNIT_TEST_Graph::graph03);
+    registerTest("graph04", &UNIT_TEST_Graph::graph04);
+    registerTest("graph05", &UNIT_TEST_Graph::graph05);
+    registerTest("graph06", &UNIT_TEST_Graph::graph06);
+    registerTest("graph07", &UNIT_TEST_Graph::graph07);
+    registerTest("graph08", &UNIT_TEST_Graph::graph08);
+    registerTest("graph09", &UNIT_TEST_Graph::graph09);
+    // registerTest("graph10", &UNIT_TEST_Graph::graph10);
+    // registerTest("graph11", &UNIT_TEST_Graph::graph11);
+    // registerTest("graph12", &UNIT_TEST_Graph::graph12);
+    // registerTest("graph13", &UNIT_TEST_Graph::graph13);
+    // registerTest("graph14", &UNIT_TEST_Graph::graph14);
+    // registerTest("graph15", &UNIT_TEST_Graph::graph15);
   }
 
  private:
   // TODO unit test new
+  bool graph01();
+  bool graph02();
+  bool graph03();
+  bool graph04();
+  bool graph05();
+  bool graph06();
+  bool graph07();
+  bool graph08();
+  bool graph09();
+  bool graph10();
+  bool graph11();
+  bool graph12();
+  bool graph13();
+  bool graph14();
+  bool graph15();
 
  public:
   static map<string, bool (UNIT_TEST_Graph::*)()> TESTS;

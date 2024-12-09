@@ -14,6 +14,8 @@
 #ifndef HEAP_H
 #define HEAP_H
 #include <memory.h>
+#include <iostream>
+#include <iomanip>
 #include "heap/IHeap.h"
 #include <sstream>
 /*
@@ -83,7 +85,9 @@ public:
      *  => Destructor will call free via function pointer "deleteUserData"
      */
     static void free(Heap<T> *pHeap){
-        for(int idx=0; idx < pHeap->count; idx++) delete pHeap->elements[idx];
+        for(int idx=0; idx < pHeap->count; idx++) {
+            delete pHeap->elements[idx];
+        }
     }
     
     
@@ -167,15 +171,23 @@ Heap<T>::Heap(
         int (*comparator)(T&, T&), 
         void (*deleteUserData)(Heap<T>* ) ){
     //YOUR CODE IS HERE
+    this->comparator = comparator;
+    this->deleteUserData = deleteUserData;
+    this->capacity = 10;
+    this->count = 0;
+    this->elements = new T[capacity];
 }
 template<class T>
 Heap<T>::Heap(const Heap<T>& heap){
     //YOUR CODE IS HERE
+    copyFrom(heap);
 }
 
 template<class T>
 Heap<T>& Heap<T>::operator=(const Heap<T>& heap){
     //YOUR CODE IS HERE
+    removeInternalData();
+    copyFrom(heap);
     return *this;
 }
 
@@ -183,11 +195,16 @@ Heap<T>& Heap<T>::operator=(const Heap<T>& heap){
 template<class T>
 Heap<T>::~Heap(){
     //YOUR CODE IS HERE
+    removeInternalData();
 }
 
 template<class T>
 void Heap<T>::push(T item){ //item  = 25
     //YOUR CODE IS HERE
+    ensureCapacity(this->count + 1);
+    this->elements[this->count] = item;
+    this->count++;
+    reheapUp(this->count - 1);
 }
 /*
       18
@@ -208,6 +225,14 @@ void Heap<T>::push(T item){ //item  = 25
 template<class T>
 T Heap<T>::pop(){
     //YOUR CODE IS HERE
+    if (empty()) {
+        throw std::underflow_error("Calling to peek with the empty heap.");
+    }
+    T backup = this->elements[0];
+    this->elements[0] = this->elements[this->count - 1];
+    this->count--;
+    reheapDown(0);
+    return backup;
 }
 
 /*
@@ -224,37 +249,62 @@ T Heap<T>::pop(){
 template<class T>
 const T Heap<T>::peek(){
     //YOUR CODE IS HERE
+    if (empty()) {
+        throw std::underflow_error("Calling to peek with the empty heap.");
+    }
+    return this->elements[0];
 }
 
 
 template<class T>
 void Heap<T>::remove(T item, void (*removeItemData)(T)){
     //YOUR CODE IS HERE
+    int foundIdx = getItem(item);
+    if (foundIdx == -1) return;
+    this->elements[foundIdx] = this->elements[this->count - 1];
+    if (removeItemData) removeItemData(item);
+    this->count--;
+    reheapDown(foundIdx);
 }
 
 template<class T>
 bool Heap<T>::contains(T item){
     //YOUR CODE IS HERE
+    for (int i = 0; i < this->count; i++) {
+        if (compare(this->elements[i], item) == 0) {
+            return true;
+        }
+    }
+    return false;
 }
 
 template<class T>
 int Heap<T>::size(){
     //YOUR CODE IS HERE
+    return this->count;
 }
 
 template<class T>
 void Heap<T>::heapify(T array[], int size){
     //YOUR CODE IS HERE
+    for (int i = 0; i < size; i++) {
+        push(array[i]);
+    }
 }
 
 template<class T>
 void Heap<T>::clear(){
     //YOUR CODE IS HERE
+    removeInternalData();
+    this->count = 0;
+    this->capacity = 10;
+    this->elements = new T[capacity];
 }
 
 template<class T>
 bool Heap<T>::empty(){
     //YOUR CODE IS HERE
+    return (this->count == 0);
 }
 
 template<class T>
@@ -311,16 +361,43 @@ void Heap<T>::swap(int a, int b){
 template<class T>
 void Heap<T>::reheapUp(int position){
     //YOUR CODE IS HERE
+    if (position <= 0) return;
+    int parent = (position - 1) / 2;
+    if (aLTb(this->elements[position], this->elements[parent])) {
+        swap(position, parent);
+        reheapUp(parent);
+    }
 }
 
 template<class T>
 void Heap<T>::reheapDown(int position){
     //YOUR CODE IS HERE
+    int leftChild = 2 * position + 1;
+    int rightChild = 2 * position + 2;
+    int last = this->count - 1;
+    if (leftChild <= last) {
+        int smallerChild = leftChild;
+        if (rightChild <= last) {
+            if (aLTb(this->elements[rightChild], this->elements[leftChild])) {
+                smallerChild = rightChild;
+            }
+        }
+        if (aLTb(this->elements[smallerChild], this->elements[position])) {
+            swap(smallerChild, position);
+            reheapDown(smallerChild);
+        }
+    }
 }
 
 template<class T>
 int Heap<T>::getItem(T item){
     //YOUR CODE IS HERE
+    for (int i = 0; i < this->count; i++) {
+        if (compare(this->elements[i], item) == 0) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 template<class T>
@@ -335,11 +412,11 @@ void Heap<T>::copyFrom(const Heap<T>& heap){
     count = heap.count;
     elements = new T[capacity];
     this->comparator = heap.comparator;
-    this->deleteUserData = heap.deleteUserData;
+    this->deleteUserData = nullptr;
     
     //Copy items from heap:
-    for(int idx=0; idx < heap.size(); idx++){
-        this->elements[idx] = heap.elements[idx];
+    for(int idx=0; idx < count; idx++){
+        elements[idx] = heap.elements[idx];
     }
 }
 

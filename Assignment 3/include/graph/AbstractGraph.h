@@ -16,6 +16,7 @@
 #include "graph/IGraph.h"
 #include <string>
 #include <sstream>
+#include <iomanip>
 using namespace std;
 
 
@@ -66,7 +67,9 @@ public:
         this->vertexEQ = vertexEQ;
         this->vertex2str = vertex2str;
     }
-    virtual ~AbstractGraph(){}
+    virtual ~AbstractGraph(){
+        clear();
+    }
     
     typedef bool (*vertexEQFunc)(T&, T&);
     typedef string (*vertex2strFunc)(T&);
@@ -95,7 +98,7 @@ public:
      */
     virtual void add(T vertex) {
         //TODO
-        VertexNode* newNode = new VertexNode(vertex, this->vertexEQ, this->vertex2Str);
+        VertexNode* newNode = new VertexNode(vertex, this->vertexEQ, this->vertex2str);
         this->nodeList.add(newNode);
     }
     virtual bool contains(T vertex){
@@ -109,53 +112,39 @@ public:
     }
     virtual float weight(T from, T to){
         //TODO
-        // for (auto node : this->nodeList) {
-        //     if (node->vertexEQ(node->vertex, from)) {
-        //         for (auto neighbor : node->adList) {
-        //             if (neighbor->vertexEQ(neighbor->to, to)) {
-        //                 return neighbor->weight;
-        //             }
-        //         }
-        //         VertexNode toNode(to, this->vertexEQ, this->vertex2Str);
-        //         Edge missingEdge(node, &toNode);
-        //         throw EdgeNotFoundException(edge2Str(missingEdge))
-        //     }
-        // }
-
         VertexNode* fromNode = getVertexNode(from);
         VertexNode* toNode = getVertexNode(to);
         if (fromNode && toNode) {
-            for (auto edge : fromNode->adList) {
-                if (vertexEQ(edge->to, to)) {
-                    return edge->weight;
-                }
+            Edge* edge = fromNode->getEdge(toNode);
+            if (!edge) {
+                Edge missingEdge(fromNode, toNode);
+                throw EdgeNotFoundException(edge2Str(missingEdge));
             }
-            VertexNode toNode(to, this->vertexEQ, this->vertex2Str);
-            Edge missingEdge(node, &toNode);
-            throw EdgeNotFoundException(edge2Str(missingEdge))
+            return edge->weight;
         }
         else {
-            VertexNode missingNode;
-            if (!fromNode) missingNode = *fromNode;
-            else missingNode = *toNode;
-            throw VertexNotFoundException(vertex2Str(missingNode));
+            if (!fromNode) {
+                VertexNode missingNode(from, this->vertexEQ, this->vertex2str);
+                throw VertexNotFoundException(vertex2Str(missingNode));
+            }
+            if (!toNode) {
+                VertexNode missingNode(to, this->vertexEQ, this->vertex2str);
+                throw VertexNotFoundException(vertex2Str(missingNode));
+            }
         }
+
+        return 0.0f;
     }
     virtual DLinkedList<T> getOutwardEdges(T from){
         //TODO
-        // for (auto node : this->nodeList) {
-        //     if (node->vertexEQ(node->vertex, from)) {
-        //         return node->getOutwardEdges();
-        //     }
-        // }
-        // return outwardEdges;
 
         VertexNode* fromNode = getVertexNode(from);
         if (fromNode) {
             return fromNode->getOutwardEdges();
         }
         else {
-            throw VertexNotFoundException(vertex2Str(*fromNode));
+            VertexNode missingNode(from, this->vertexEQ, this->vertex2str);
+            throw VertexNotFoundException(vertex2Str(missingNode));
         }
     }
     
@@ -166,15 +155,16 @@ public:
             DLinkedList<T> inwardEdges;
             for (auto vertex : this->nodeList) {
                 for (auto edge : vertex->adList) {
-                    if (edge->to->equals(toNode))) {
-                        inwardEdges.add(edge->from);
+                    if (edge->to->equals(toNode)) {
+                        inwardEdges.add(edge->from->vertex);
                     }
                 }
             }
             return inwardEdges;
         }
         else {
-            throw VertexNotFoundException(vertex2Str(*toNode));
+            VertexNode missingNode(to, this->vertexEQ, this->vertex2str);
+            throw VertexNotFoundException(vertex2Str(missingNode));
         }
     }
     
@@ -188,7 +178,12 @@ public:
     };
     virtual void clear(){
         //TODO
-        return this->nodeList.clear();
+        while (this->nodeList.size()) {
+            VertexNode* node = this->nodeList.get(0);
+            delete node;
+            this->nodeList.removeAt(0);
+        }
+        this->nodeList.clear();
     }
     virtual int inDegree(T vertex){
         //TODO
@@ -197,7 +192,8 @@ public:
             return node->inDegree();
         }
         else {
-            throw VertexNotFoundException(vertex2Str(*node));
+            VertexNode missingNode(vertex, this->vertexEQ, this->vertex2str);
+            throw VertexNotFoundException(vertex2Str(missingNode));
         }
     }
     virtual int outDegree(T vertex){
@@ -207,7 +203,8 @@ public:
             return node->outDegree();
         }
         else {
-            throw VertexNotFoundException(vertex2Str(*node));
+            VertexNode missingNode(vertex, this->vertexEQ, this->vertex2str);
+            throw VertexNotFoundException(vertex2Str(missingNode));
         }
     }
     
@@ -232,11 +229,16 @@ public:
             return false;
         }
         else {
-            VertexNode missingNode;
-            if (!fromNode) missingNode = *fromNode;
-            else missingNode = *toNode;
-            throw VertexNotFoundException(vertex2Str(missingNode));
+            if (!fromNode) {
+                VertexNode missingNode(from, this->vertexEQ, this->vertex2str);
+                throw VertexNotFoundException(vertex2Str(missingNode));
+            }
+            if (!toNode) {
+                VertexNode missingNode(to, this->vertexEQ, this->vertex2str);
+                throw VertexNotFoundException(vertex2Str(missingNode));
+            }
         }
+        return false;
     }
     void println(){
         cout << this->toString() << endl;
@@ -319,6 +321,16 @@ public:
             this->vertex2str = vertex2str;
             this->outDegree_ = this->inDegree_ = 0;
         }
+
+        ~VertexNode() {
+            while (this->adList.size()) {
+                Edge* edge = this->adList.get(0);
+                delete edge;
+                this->adList.removeAt(0);
+            }
+            this->adList.clear();
+        }
+
         T& getVertex(){
             return vertex;
         }

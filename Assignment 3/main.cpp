@@ -5,13 +5,16 @@
  * Author: Võ Tiến
  * Link FB : https://www.facebook.com/Shiba.Vo.Tien
  * Link Group : https://www.facebook.com/groups/khmt.ktmt.cse.bku
- * Date: 27.11.2024
+ * Date: 05.12.2024
 
- ! build code :     g++ -fsanitize=hashress -fsanitize=undefined -std=c++17
-    -o main -Iinclude -Itest -Isrc
-    main.cpp
-    test/unit_test/graph/unit_test.cpp
- -DTEST_GRAPH
+ ! build code graph :   g++ -fsanitize=address -fsanitize=undefined -std=c++17
+-o main -Iinclude -Itest main.cpp test/unit_test/sort_topo/unit_test.cpp
+test/unit_test/sort_topo/test/*.cpp  -DTEST_SORT_TOPO
+
+  ! build code topo : g++ -fsanitize=address -fsanitize=undefined -std=c++17 -o
+main -Iinclude -Itest main.cpp test/unit_test/graph/unit_test.cpp
+test/unit_test/graph/test/*.cpp  -DTEST_GRAPH
+
 
  * run code
     * terminal unit test array list
@@ -23,6 +26,9 @@
 #ifdef TEST_GRAPH
 #include "unit_test/graph/unit_test.hpp"
 const string TEST_CASE = "GRAPH";
+#elif TEST_SORT_TOPO
+#include "unit_test/sort_topo/unit_test.hpp"
+const string TEST_CASE = "SORT_TOPO";
 #endif
 void printTestCase();
 
@@ -37,10 +43,6 @@ int main(int argc, char *argv[]) {
     std::cout << GREEN << BOLD << "Running unit_test/" << TEST_CASE << RESET
               << "\n";
     handleTestUnit(argc, argv);
-  } else if (arg1 == "test_random") {
-    std::cout << GREEN << BOLD << "Running test_random/" << TEST_CASE << RESET
-              << "\n";
-    handleTestRandom(argc, argv);
   } else {
     printTestCase();
   }
@@ -49,6 +51,18 @@ int main(int argc, char *argv[]) {
 #ifdef TEST_GRAPH
 void handleTestUnit(int argc, char *argv[]) {
   UNIT_TEST_Graph unitTest;
+
+  if (argc == 2 || (argc == 3 && std::string(argv[2]) == "all")) {
+    unitTest.runAllTests();
+  } else if (argc == 3) {
+    unitTest.runTest(argv[2]);
+  } else {
+    printTestCase();
+  }
+}
+#elif TEST_SORT_TOPO
+void handleTestUnit(int argc, char *argv[]) {
+  UNIT_TEST_Sort_Togo unitTest;
 
   if (argc == 2 || (argc == 3 && std::string(argv[2]) == "all")) {
     unitTest.runAllTests();

@@ -27,5 +27,4 @@ const std::string GREEN = "\033[32m";
 const std::string CYAN = "\033[36m";
 
 void handleTestUnit(int argc, char *argv[]);
-void handleTestRandom(int argc, char *argv[]);
 #endif  // MAIN_HPP

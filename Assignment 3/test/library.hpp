@@ -10,4 +10,5 @@
 #include <vector>
 
 using namespace std;
+
 #endif  // LIBRARY_HPP
