@@ -384,6 +384,7 @@ public:
             for (auto edge : this->adList) {
                 if (edge->to->equals(to)) {
                     this->adList.removeItem(edge);
+                    delete edge;
                     this->outDegree_--;
                     to->inDegree_--;
                     return;

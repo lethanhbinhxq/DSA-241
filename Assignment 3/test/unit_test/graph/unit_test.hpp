@@ -21,12 +21,12 @@ class UNIT_TEST_Graph {
     registerTest("graph07", &UNIT_TEST_Graph::graph07);
     registerTest("graph08", &UNIT_TEST_Graph::graph08);
     registerTest("graph09", &UNIT_TEST_Graph::graph09);
-    // registerTest("graph10", &UNIT_TEST_Graph::graph10);
-    // registerTest("graph11", &UNIT_TEST_Graph::graph11);
-    // registerTest("graph12", &UNIT_TEST_Graph::graph12);
-    // registerTest("graph13", &UNIT_TEST_Graph::graph13);
-    // registerTest("graph14", &UNIT_TEST_Graph::graph14);
-    // registerTest("graph15", &UNIT_TEST_Graph::graph15);
+    registerTest("graph10", &UNIT_TEST_Graph::graph10);
+    registerTest("graph11", &UNIT_TEST_Graph::graph11);
+    registerTest("graph12", &UNIT_TEST_Graph::graph12);
+    registerTest("graph13", &UNIT_TEST_Graph::graph13);
+    registerTest("graph14", &UNIT_TEST_Graph::graph14);
+    registerTest("graph15", &UNIT_TEST_Graph::graph15);
   }
 
  private:

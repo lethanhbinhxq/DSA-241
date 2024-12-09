@@ -90,6 +90,7 @@ public:
                 if (edge2) node->removeTo(vertex);
             }
             this->nodeList.removeItem(node);
+            delete node;
         }
         else {
             typename AbstractGraph<T>::VertexNode missingNode(vertex, this->vertexEQ, this->vertex2str);

@@ -95,7 +95,6 @@ public:
     void remove(T vertex)
     {
         // TODO
-        cout << "Remove in UGraph" << endl;
         typename AbstractGraph<T>::VertexNode* node = this->getVertexNode(vertex);
         if (node) {
             for (auto vertex : this->nodeList) {
@@ -111,6 +110,7 @@ public:
                 }
             }
             this->nodeList.removeItem(node);
+            delete node;
         }
         else {
             typename AbstractGraph<T>::VertexNode missingNode(vertex, this->vertexEQ, this->vertex2str);

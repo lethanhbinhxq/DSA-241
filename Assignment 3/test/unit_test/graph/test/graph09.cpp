@@ -14,7 +14,7 @@ bool UNIT_TEST_Graph::graph09() {
   DGraphModel<char> *model = DGraphModel<char>::create(
       vertices, 4, edges, 5, &charComparator, &vertex2str);
   model->remove('A');
-  // model->remove('B');
+  model->remove('B');
   DLinkedList<char> in = model->getInwardEdges('D');
 
   output << "getInwardEdges : D: ";
