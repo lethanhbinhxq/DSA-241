@@ -15,11 +15,11 @@ class UNIT_TEST_Sort_Togo {
  public:
   UNIT_TEST_Sort_Togo() {
     // TODO unit test new
-    registerTest("sort_topo01", &UNIT_TEST_Sort_Togo::sort_topo01);
-    registerTest("sort_topo02", &UNIT_TEST_Sort_Togo::sort_topo02);
-    registerTest("sort_topo03", &UNIT_TEST_Sort_Togo::sort_topo03);
-    registerTest("sort_topo04", &UNIT_TEST_Sort_Togo::sort_topo04);
-    registerTest("sort_topo05", &UNIT_TEST_Sort_Togo::sort_topo05);
+    // registerTest("sort_topo01", &UNIT_TEST_Sort_Togo::sort_topo01);
+    // registerTest("sort_topo02", &UNIT_TEST_Sort_Togo::sort_topo02);
+    // registerTest("sort_topo03", &UNIT_TEST_Sort_Togo::sort_topo03);
+    // registerTest("sort_topo04", &UNIT_TEST_Sort_Togo::sort_topo04);
+    // registerTest("sort_topo05", &UNIT_TEST_Sort_Togo::sort_topo05);
     // registerTest("sort_topo06", &UNIT_TEST_Sort_Togo::sort_topo06);
     // registerTest("sort_topo07", &UNIT_TEST_Sort_Togo::sort_topo07);
     // registerTest("sort_topo08", &UNIT_TEST_Sort_Togo::sort_topo08);
@@ -35,11 +35,11 @@ class UNIT_TEST_Sort_Togo {
     // registerTest("sort_topo18", &UNIT_TEST_Sort_Togo::sort_topo18);
     // registerTest("sort_topo19", &UNIT_TEST_Sort_Togo::sort_topo19);
     // registerTest("sort_topo20", &UNIT_TEST_Sort_Togo::sort_topo20);
-    // registerTest("sort_topo21", &UNIT_TEST_Sort_Togo::sort_topo21);
-    // registerTest("sort_topo22", &UNIT_TEST_Sort_Togo::sort_topo22);
-    // registerTest("sort_topo23", &UNIT_TEST_Sort_Togo::sort_topo23);
-    // registerTest("sort_topo24", &UNIT_TEST_Sort_Togo::sort_topo24);
-    // registerTest("sort_topo25", &UNIT_TEST_Sort_Togo::sort_topo25);
+    registerTest("sort_topo21", &UNIT_TEST_Sort_Togo::sort_topo21);
+    registerTest("sort_topo22", &UNIT_TEST_Sort_Togo::sort_topo22);
+    registerTest("sort_topo23", &UNIT_TEST_Sort_Togo::sort_topo23);
+    registerTest("sort_topo24", &UNIT_TEST_Sort_Togo::sort_topo24);
+    registerTest("sort_topo25", &UNIT_TEST_Sort_Togo::sort_topo25);
   }
 
  private:

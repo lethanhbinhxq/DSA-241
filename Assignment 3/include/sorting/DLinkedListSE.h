@@ -34,20 +34,26 @@ public:
     void sort(int (*comparator)(T&,T&)=0){
         //TODO: implement this function
         //     - You should implement the merge sort algorithm
-        if (!this->empty()) {
-            typename DLinkedList<T>::Node* sortHead = this->head->next;
-            sortHead->prev = nullptr;
-            this->tail->prev->next = nullptr;
-            mergeSort(sortHead, comparator);
-            typename DLinkedList<T>::Node* sortTail = sortHead;
-            while (sortTail->next) {
-                sortTail = sortTail->next;
-            }
-            this->head->next = sortHead;
-            sortHead->prev = this->head;
-            this->tail->prev = sortTail;
-            sortTail->next = this->tail;
+        if (this->empty()) {
+            return;
         }
+        typename DLinkedList<T>::Node* sortHead = this->head->next;
+        
+        sortHead->prev = nullptr;
+        this->tail->prev->next = nullptr;
+
+        mergeSort(sortHead, comparator);
+
+        typename DLinkedList<T>::Node* currentTail = sortHead;
+        while (currentTail->next) {
+            currentTail = currentTail->next;
+        }
+
+        this->head->next = sortHead;
+        sortHead->prev = this->head;
+
+        this->tail->prev = currentTail;
+        currentTail->next = this->tail;
     };
     
 protected:
@@ -60,30 +66,39 @@ protected:
         }
     }
 
-    void mergeSort(typename DLinkedList<T>::Node* firstHead, int (*comparator)(T&,T&)=nullptr) {
+    void mergeSort(typename DLinkedList<T>::Node*& firstHead, int (*comparator)(T&,T&)=nullptr) {
         if (firstHead && firstHead->next) {
-            typename DLinkedList<T>::Node* secondHead = divide(firstHead);
+            typename DLinkedList<T>::Node* secondHead;
+            divide(firstHead, secondHead);
             mergeSort(firstHead, comparator);
             mergeSort(secondHead, comparator);
             merge(firstHead, secondHead, comparator);
         }
     }
 
-    typename DLinkedList<T>::Node* divide(typename DLinkedList<T>::Node* head) {
-        typename DLinkedList<T>::Node* slow = head;
-        typename DLinkedList<T>::Node* fast = head->next;
-
-        while (fast && fast->next) {
-            slow = slow->next;
-            fast = fast->next->next;
+    void divide(typename DLinkedList<T>::Node* &firstHead, typename DLinkedList<T>::Node* &secondHead) {
+        if (!firstHead || !firstHead->next) {
+            secondHead = nullptr;
+            return;
         }
 
-        typename DLinkedList<T>::Node* secondHead = slow->next;
+        typename DLinkedList<T>::Node* slow = firstHead;
+        typename DLinkedList<T>::Node* fast = firstHead->next;
+        while (fast) {
+            fast = fast->next;
+            if (fast) {
+                fast = fast->next;
+                slow = slow->next;
+            }
+        }
+        secondHead = slow->next;
+        if (secondHead) {
+            secondHead->prev = nullptr;
+        }
         slow->next = nullptr;
-        return secondHead;
     }
 
-    void merge(typename DLinkedList<T>::Node* firstHead, typename DLinkedList<T>::Node* secondHead, int (*comparator)(T&,T&) = nullptr) {
+    void merge(typename DLinkedList<T>::Node*& firstHead, typename DLinkedList<T>::Node*& secondHead, int (*comparator)(T&,T&) = nullptr) {
         typename DLinkedList<T>::Node mergeList;
         typename DLinkedList<T>::Node* mergePtr = &mergeList;
 

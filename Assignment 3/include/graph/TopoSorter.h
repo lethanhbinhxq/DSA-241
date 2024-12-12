@@ -59,9 +59,9 @@ public:
             bfsSortedList.add(curVertex);
 
             DLinkedListSE<T> neighborList = this->graph->getOutwardEdges(curVertex);
-            // if (sorted) {
-            //     neighborList.sort();
-            // }
+            if (sorted) {
+                neighborList.sort();
+            }
             // cout << curVertex << ": ";
             for (const auto& neighbor : neighborList) {
                 int inDegree = inDegreeMap.get(neighbor) - 1;
@@ -97,9 +97,9 @@ public:
 
             if (outDegreeMap.get(curVertex) > 0) {
                 DLinkedListSE<T> neighborList = this->graph->getOutwardEdges(curVertex);
-                // if (sorted) {
-                //     neighborList.sort();
-                // }
+                if (sorted) {
+                    neighborList.sort();
+                }
 
                 for (const auto& neighbor : neighborList) {
                     if (processingStack.contains(neighbor)) {
