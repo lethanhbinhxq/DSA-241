@@ -40,8 +40,7 @@ public:
         }
         return bfsSort(sorted);
     }
-    DLinkedList<T> bfsSort(bool sorted=true){ 
-        //TODO
+    DLinkedList<T> bfsSort(bool sorted = true) {
         DLinkedList<T> bfsSortedList;
         xMap<T, int> inDegreeMap = vertex2inDegree(this->hash_code);
         DLinkedListSE<T> zeroIndegreeList = listOfZeroInDegrees();
@@ -58,24 +57,28 @@ public:
         while (!zeroIndegreeQueue.empty()) {
             T curVertex = zeroIndegreeQueue.pop();
             bfsSortedList.add(curVertex);
+
             DLinkedListSE<T> neighborList = this->graph->getOutwardEdges(curVertex);
-            if (sorted) neighborList.sort();
-            for (auto neighbor : neighborList) {
-                if (bfsSortedList.contains(neighbor) || zeroIndegreeQueue.contains(neighbor)) {
-                    continue;
-                }
-                int inDegree = inDegreeMap.get(neighbor);
-                inDegreeMap.put(neighbor, inDegree - 1);
-                if (inDegree - 1 == 0) {
+            // if (sorted) {
+            //     neighborList.sort();
+            // }
+            // cout << curVertex << ": ";
+            for (const auto& neighbor : neighborList) {
+                int inDegree = inDegreeMap.get(neighbor) - 1;
+                inDegreeMap.put(neighbor, inDegree);
+
+                if (inDegree == 0 && !bfsSortedList.contains(neighbor) && !zeroIndegreeQueue.contains(neighbor)) {
                     zeroIndegreeQueue.push(neighbor);
                 }
             }
+            // cout << endl;
         }
+
         return bfsSortedList;
     }
 
-    DLinkedList<T> dfsSort(bool sorted=true){
-        //TODO
+
+    DLinkedList<T> dfsSort(bool sorted = true) {
         DLinkedList<T> dfsSortedList;
         xMap<T, int> outDegreeMap = vertex2outDegree(this->hash_code);
         DLinkedListSE<T> zeroIndegreeList = listOfZeroInDegrees();
@@ -86,33 +89,37 @@ public:
         }
 
         while (!zeroIndegreeList.empty()) {
-            processingStack.push(zeroIndegreeList.removeAt(0));   
+            processingStack.push(zeroIndegreeList.removeAt(0));
         }
 
         while (!processingStack.empty()) {
             T curVertex = processingStack.peek();
-            int outDegree = outDegreeMap.get(curVertex);
-            if (outDegree) {
+
+            if (outDegreeMap.get(curVertex) > 0) {
                 DLinkedListSE<T> neighborList = this->graph->getOutwardEdges(curVertex);
-                if (sorted) neighborList.sort();
-                for (auto neighbor : neighborList) {
+                // if (sorted) {
+                //     neighborList.sort();
+                // }
+
+                for (const auto& neighbor : neighborList) {
                     if (processingStack.contains(neighbor)) {
                         processingStack.remove(neighbor);
                         processingStack.push(neighbor);
-                    }
-                    if (!processingStack.contains(neighbor) && !dfsSortedList.contains(neighbor)) {
+                    } else if (!dfsSortedList.contains(neighbor)) {
                         processingStack.push(neighbor);
                     }
-                    outDegreeMap.put(curVertex, outDegree - 1);
+
+                    outDegreeMap.put(curVertex, outDegreeMap.get(curVertex) - 1);
                 }
-            }
-            else {
+            } else {
                 processingStack.pop();
                 dfsSortedList.add(0, curVertex);
             }
         }
+
         return dfsSortedList;
     }
+
 
 protected:
 
