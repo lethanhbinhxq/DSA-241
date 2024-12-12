@@ -7,8 +7,7 @@ bool UNIT_TEST_Graph::graph09() {
   char vertices[] = {'A', 'B', 'C', 'D'};
 
   // Định nghĩa các cạnh
-  Edge<char> edges[5] = {Edge<char>('A', 'B', 1.5), 
-  Edge<char>('A', 'A', 10),
+  Edge<char> edges[5] = {Edge<char>('A', 'B', 1.5), Edge<char>('A', 'A', 10),
                          Edge<char>('B', 'C', 2.0), Edge<char>('C', 'D', 3.2),
                          Edge<char>('D', 'D', 3.2)};
   DGraphModel<char> *model = DGraphModel<char>::create(

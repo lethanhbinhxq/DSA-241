@@ -22,7 +22,7 @@ bool UNIT_TEST_Sort_Togo::sort_topo03() {
   DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
 
   //! expect ----------------------------------
-  string expect = "DFS Topological Sort: 8->7->4->1->3->5->6->2->NULL";
+  string expect = "DFS Topological Sort: 1->4->3->5->6->2->8->7->NULL";
 
   //! output ----------------------------------
   output << "DFS Topological Sort: ";

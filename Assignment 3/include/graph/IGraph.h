@@ -24,28 +24,32 @@ using namespace std;
 class VertexNotFoundException: public std::exception{
 private:
     string vertex;
+    string message;
 public:
     VertexNotFoundException(string vertex){
         this->vertex = vertex;
-    }
-    const char * what () const throw (){
         stringstream os;
         os << "Vertex (" << this->vertex << "): is not found";
-        return os.str().c_str();
+        message = os.str();
+    }
+    const char * what () const throw (){
+        return message.c_str();
     }
 };
 
 class EdgeNotFoundException: public std::exception{
 private:
     string edge;
+    string message;
 public:
     EdgeNotFoundException(string edge){
         this->edge = edge;
-    }
-    const char * what () const throw (){
         stringstream os;
         os << "Edge (" << edge << "): is not found";
-        return os.str().c_str();
+        message = os.str();
+    }
+    const char * what () const throw (){
+        return message.c_str();
     }
 };
 

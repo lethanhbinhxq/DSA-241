@@ -44,7 +44,7 @@ protected:
             if(vertexEQ(node->vertex, vertex) ) return node;
             it++;
         }
-        return 0;
+        return nullptr;
     }
     string vertex2Str(VertexNode& node){
         return vertex2str(node.vertex);
@@ -99,6 +99,12 @@ public:
     virtual void add(T vertex) {
         //TODO
         VertexNode* newNode = new VertexNode(vertex, this->vertexEQ, this->vertex2str);
+        for (auto node : this->nodeList) {
+            if (node->equals(newNode)) {
+                delete newNode;
+                return;
+            }
+        }
         this->nodeList.add(newNode);
     }
     virtual bool contains(T vertex){
@@ -129,7 +135,9 @@ public:
             }
             if (!toNode) {
                 VertexNode missingNode(to, this->vertexEQ, this->vertex2str);
-                throw VertexNotFoundException(vertex2Str(missingNode));
+                // cout << "Vertex not found in weight" << endl;
+                throw VertexNotFoundException(vertex2str(to));
+                // cout << "Vertex not found in weight" << endl;
             }
         }
 

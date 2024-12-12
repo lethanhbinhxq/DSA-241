@@ -7,3 +7,5 @@ string vertex2str(char &v) {
   return os.str();
 }
 int intKeyHash(char &key, int capacity) { return key % capacity; }
+
+

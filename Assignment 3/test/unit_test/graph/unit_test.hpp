@@ -27,6 +27,25 @@ class UNIT_TEST_Graph {
     registerTest("graph13", &UNIT_TEST_Graph::graph13);
     registerTest("graph14", &UNIT_TEST_Graph::graph14);
     registerTest("graph15", &UNIT_TEST_Graph::graph15);
+    registerTest("graph16", &UNIT_TEST_Graph::graph16);
+    registerTest("graph17", &UNIT_TEST_Graph::graph17);
+    registerTest("graph18", &UNIT_TEST_Graph::graph18);
+    registerTest("graph19", &UNIT_TEST_Graph::graph19);
+    registerTest("graph20", &UNIT_TEST_Graph::graph20);
+    registerTest("graph21", &UNIT_TEST_Graph::graph21);
+    registerTest("graph22", &UNIT_TEST_Graph::graph22);  
+    registerTest("graph23", &UNIT_TEST_Graph::graph23);
+    registerTest("graph24", &UNIT_TEST_Graph::graph24);
+    registerTest("graph25", &UNIT_TEST_Graph::graph25);
+    registerTest("graph26", &UNIT_TEST_Graph::graph26);
+    registerTest("graph27", &UNIT_TEST_Graph::graph27);
+    registerTest("graph28", &UNIT_TEST_Graph::graph28);
+    registerTest("graph29", &UNIT_TEST_Graph::graph29);
+    registerTest("graph30", &UNIT_TEST_Graph::graph30);
+    registerTest("graph31", &UNIT_TEST_Graph::graph31);
+    registerTest("graph32", &UNIT_TEST_Graph::graph32);
+    registerTest("graph33", &UNIT_TEST_Graph::graph33);
+    registerTest("graph34", &UNIT_TEST_Graph::graph34);
   }
 
  private:
@@ -46,6 +65,25 @@ class UNIT_TEST_Graph {
   bool graph13();
   bool graph14();
   bool graph15();
+  bool graph16();
+  bool graph17();
+  bool graph18();
+  bool graph19();
+  bool graph20();
+  bool graph21();
+  bool graph22();
+  bool graph23();
+  bool graph24();
+  bool graph25();
+  bool graph26();
+  bool graph27();
+  bool graph28();
+  bool graph29();
+  bool graph30();
+  bool graph31();
+  bool graph32();
+  bool graph33();
+  bool graph34();
 
  public:
   static map<string, bool (UNIT_TEST_Graph::*)()> TESTS;

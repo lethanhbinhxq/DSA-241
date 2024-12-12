@@ -19,6 +19,27 @@ class UNIT_TEST_Sort_Togo {
     registerTest("sort_topo02", &UNIT_TEST_Sort_Togo::sort_topo02);
     registerTest("sort_topo03", &UNIT_TEST_Sort_Togo::sort_topo03);
     registerTest("sort_topo04", &UNIT_TEST_Sort_Togo::sort_topo04);
+    registerTest("sort_topo05", &UNIT_TEST_Sort_Togo::sort_topo05);
+    registerTest("sort_topo06", &UNIT_TEST_Sort_Togo::sort_topo06);
+    registerTest("sort_topo07", &UNIT_TEST_Sort_Togo::sort_topo07);
+    registerTest("sort_topo08", &UNIT_TEST_Sort_Togo::sort_topo08);
+    registerTest("sort_topo09", &UNIT_TEST_Sort_Togo::sort_topo09);
+    registerTest("sort_topo10", &UNIT_TEST_Sort_Togo::sort_topo10);
+    registerTest("sort_topo11", &UNIT_TEST_Sort_Togo::sort_topo11);
+    registerTest("sort_topo12", &UNIT_TEST_Sort_Togo::sort_topo12);
+    registerTest("sort_topo13", &UNIT_TEST_Sort_Togo::sort_topo13);
+    registerTest("sort_topo14", &UNIT_TEST_Sort_Togo::sort_topo14);
+    registerTest("sort_topo15", &UNIT_TEST_Sort_Togo::sort_topo15);
+    registerTest("sort_topo16", &UNIT_TEST_Sort_Togo::sort_topo16);
+    registerTest("sort_topo17", &UNIT_TEST_Sort_Togo::sort_topo17);
+    registerTest("sort_topo18", &UNIT_TEST_Sort_Togo::sort_topo18);
+    registerTest("sort_topo19", &UNIT_TEST_Sort_Togo::sort_topo19);
+    registerTest("sort_topo20", &UNIT_TEST_Sort_Togo::sort_topo20);
+    registerTest("sort_topo21", &UNIT_TEST_Sort_Togo::sort_topo21);
+    registerTest("sort_topo22", &UNIT_TEST_Sort_Togo::sort_topo22);
+    registerTest("sort_topo23", &UNIT_TEST_Sort_Togo::sort_topo23);
+    registerTest("sort_topo24", &UNIT_TEST_Sort_Togo::sort_topo24);
+    registerTest("sort_topo25", &UNIT_TEST_Sort_Togo::sort_topo25);
   }
 
  private:
@@ -27,6 +48,27 @@ class UNIT_TEST_Sort_Togo {
   bool sort_topo02();
   bool sort_topo03();
   bool sort_topo04();
+  bool sort_topo05();
+  bool sort_topo06();
+  bool sort_topo07();
+  bool sort_topo08();
+  bool sort_topo09();
+  bool sort_topo10();
+  bool sort_topo11();
+  bool sort_topo12();
+  bool sort_topo13();
+  bool sort_topo14();
+  bool sort_topo15();
+  bool sort_topo16();
+  bool sort_topo17();
+  bool sort_topo18();
+  bool sort_topo19();
+  bool sort_topo20();
+  bool sort_topo21();
+  bool sort_topo22();
+  bool sort_topo23();
+  bool sort_topo24();
+  bool sort_topo25();
 
  public:
   static map<string, bool (UNIT_TEST_Sort_Togo::*)()> TESTS;

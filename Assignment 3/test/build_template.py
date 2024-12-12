@@ -2,8 +2,8 @@ import os
 
 template = '''#include "../unit_test.hpp"
 
-bool UNIT_TEST_Graph::graph{index:02}() {{
-  string name = "graph{index:02}";
+bool UNIT_TEST_Sort_topo::sort_topo{index:02}() {{
+  string name = "sort_topo{index:02}";
   //! data ------------------------------------
 
   //! expect ----------------------------------
@@ -19,9 +19,9 @@ bool UNIT_TEST_Graph::graph{index:02}() {{
 }}
 '''
 
-# Generate files from graph01.cpp to graph20.cpp
-for i in range(1, 21):
-    filename = f"unit_test/graph/test/graph{i:02}.cpp"
+# Generate files from sort_topo01.cpp to sort_topo20.cpp
+for i in range(22 ,26):
+    filename = f"unit_test/sort_topo/test/sort_topo{i:02}.cpp"
     if not os.path.exists(filename):
         with open(filename, 'w') as file:
             content = template.format(index=i)
