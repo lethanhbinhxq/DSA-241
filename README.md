@@ -1,2 +1,1 @@
-**DSA assignments - Semester 241
-**
+# DSA assignments - Semester 241
