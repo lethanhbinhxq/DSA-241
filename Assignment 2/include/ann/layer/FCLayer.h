@@ -46,6 +46,7 @@ protected:
     virtual void init_weights();
     
 private:
+// public:
     int m_nNin, m_nNout;
     bool m_bUse_Bias;
     

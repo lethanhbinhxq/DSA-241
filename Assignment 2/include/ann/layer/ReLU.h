@@ -26,7 +26,7 @@ public:
     LayerType get_type(){ return LayerType::RELU; };
     
 private:
-    xt::xarray<bool> m_aMask;
+    xt::xarray<bool> m_aMask; // cached?
 };
 
 #endif /* RELU_H */

@@ -30,7 +30,7 @@ public:
     }
     const char * what () const throw (){
         stringstream os;
-        os << "Vertex (" << this->vertex << "): is not found";
+        os << "Vertex (" << "this->vertex" << "): is not found";
         return os.str().c_str();
     }
 };

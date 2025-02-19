@@ -26,6 +26,7 @@
 #include "metrics/IMetrics.h"
 #include "metrics/ClassMetrics.h"
 #include "optim/SGD.h"
+#include "dataset/DSFactory.h"
 
 
 #endif /* ANNHEADER_H */
